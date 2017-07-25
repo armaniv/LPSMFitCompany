@@ -1,28 +1,11 @@
 package com.example.vale.fitcompany;
 
-/**
- * Created by Vale on 24/07/2017.
- */
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
-/*
-import com.example.lesson03.lesson03.Entities.Article;
-import com.example.lesson03.lesson03.R;*/
-
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class DBOperations {

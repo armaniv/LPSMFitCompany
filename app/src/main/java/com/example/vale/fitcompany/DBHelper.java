@@ -1,23 +1,19 @@
 package com.example.vale.fitcompany;
 
-/**
- * Created by Vale on 24/07/2017.
- */
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper
+{
 
     Context myContext;
 
-    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
+    {
         super(context, name, factory, version);
         this.myContext=context;
     }
@@ -26,7 +22,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase _db)
     {
-
         //leggo il file CreateTable.sql dagli assets, creo in tal modo le tabelle
         BufferedReader reader = null;
         try
@@ -85,14 +80,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
             }
         }
-
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+    public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2)
+    {
         throw new UnsupportedOperationException("You have to implement this in order to upgrade database");
-
     }
-
 
 }
