@@ -1,4 +1,4 @@
-package com.example.vale.fitcompany;
+package com.example.vale.fitcompany.DataBase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

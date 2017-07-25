@@ -46,9 +46,9 @@ INSERT INTO Istruttore VALUES (1,'Marco','Bianchi','Specializzato in body-buildi
 INSERT INTO Istruttore VALUES (2,'Giovanni','Rossi','Specializzato in power lifting, istruttore di livello 3');
 INSERT INTO Istruttore VALUES (3,'Chiara','Verdi','Specializzata in tecniche della riabilitazione e fitness-model');
 INSERT INTO Istruttore VALUES (4,'Mario','Neri','Personal trainer di livello 2, riconosciuto. Preparatore del campione italiano di Man physique');
-INSERT INTO Utente VALUES (1,'Valentino','Armani','aaaa@bbbb.com','2017-01-01','2019-01-01',1,4);
-INSERT INTO Utente VALUES (2,'Jacek','Zbudowski','cccc@dddd.com','2017-01-01','2018-01-01',1,2);
-INSERT INTO Utente VALUES (3,'Laura','Gialli','eeee@example.com','2017-01-01','2017-08-01',1,3);
+INSERT INTO Utente VALUES (1,'Valentino','Armani','aaaa@bbbb.com','2017-01-01','2019-01-01',1,'P@ssword',4);
+INSERT INTO Utente VALUES (2,'Jacek','Zbudowski','cccc@dddd.com','2017-01-01','2018-01-01',1,'Password2',2);
+INSERT INTO Utente VALUES (3,'Laura','Gialli','eeee@example.com','2017-01-01','2017-08-01',1,'Pass3',3);
 INSERT INTO Peso VALUES ('2017-01-02 17:30:22',72.50,1);
 INSERT INTO Peso VALUES ('2017-01-12 17:41:13',73,1);
 INSERT INTO Peso VALUES ('2017-01-22 17:37:33',73.50,1);
