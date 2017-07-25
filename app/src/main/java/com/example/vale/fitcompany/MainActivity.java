@@ -1,5 +1,6 @@
 package com.example.vale.fitcompany;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,5 +32,11 @@ public class MainActivity extends AppCompatActivity
         Log.d("PrimaQuery", "Nome utente: "+str);
 
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
+
     }
+
 }
