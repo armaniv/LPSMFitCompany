@@ -35,75 +35,32 @@ public class DBOperations {
         mDb.execSQL("DROP TABLE IF EXISTS "+ Param);
     }
 
-
-    /*
-
-    public ArrayList<Article> fetchArticle() {
-        ArrayList<Article> res = new ArrayList<Article>();
-
-        Cursor c = mDb.query(DBMetadata.ARTICLE_TABLE, null, null, null, null, null, null);
-        int idCol = c.getColumnIndex(DBMetadata.ARTICLE_ID);
-        int descCol = c.getColumnIndex(DBMetadata.ARTICLE_DESCRIPTION);
-        int imageCol = c.getColumnIndex(DBMetadata.ARTICLE_IMAGE);
-
-        if (c.moveToFirst()) {
-            do {
-                Article article = new Article();
-                article.setId(c.getInt(idCol));
-                article.setArticleName(c.getString(descCol));
-
-                if (c.getBlob(imageCol) != null) {
-                    InputStream is = new ByteArrayInputStream(c.getBlob(imageCol), 0, c.getBlob(imageCol).length);
-                    article.setImage(BitmapFactory.decodeStream(is));
-                }
-
-                res.add(article);
-            } while (c.moveToNext());
-        }
-        return res;
-    }
-
-    public ArrayList<Article> fetchArticleWithName(String name) {
-        ArrayList<Article> res = new ArrayList<Article>();
-
-        String whereClause = DBMetadata.ARTICLE_DESCRIPTION + "==" + name;
-        Cursor c = mDb.query(DBMetadata.ARTICLE_TABLE, null, whereClause,
-                null, null, null, null);
-        int descCol = c.getColumnIndex(DBMetadata.ARTICLE_DESCRIPTION);
-        int imageCol = c.getColumnIndex(DBMetadata.ARTICLE_IMAGE);
-
-        if (c.moveToFirst()) {
-            do {
-                Article article = new Article();
-                article.setArticleName(c.getString(descCol));
-
-                if (c.getBlob(imageCol) != null) {
-                    InputStream is = new ByteArrayInputStream(
-                            c.getBlob(imageCol), 0, c.getBlob(imageCol).length);
-                    article.setImage(BitmapFactory.decodeStream(is));
-                }
-
-                res.add(article);
-            } while (c.moveToNext());
-        }
-        return res;
-    }
-
-    */
-
-
-    public Cursor TrovaNomeUtente()
+    public boolean ControllaLogin(Integer UtenteId, String Password)
     {
-        Cursor c=null;
+        boolean risultato=false;
+        Cursor curRisultato = null,checkId=null;
+
+        //recupero la password dell'utente
         try
         {
-            c = mDb.rawQuery("SELECT Nome FROM Utente WHERE Id= 1", null);
+            curRisultato = mDb.rawQuery("SELECT Id,Password FROM Utente WHERE Id=?", new String[]{String.valueOf(UtenteId)});
+
+            //controllo se la password corrisponde
+            if(curRisultato!=null)
+            {
+                curRisultato.moveToFirst();
+                String str = curRisultato.getString(curRisultato.getColumnIndex("Password")).toString();
+
+                if (str.equals(Password))
+                    risultato=true;
+            }
         }
         catch (Exception e )
         {
             Log.e("Errore", "Errore esecuzione query "+ e.toString());
         }
-        return c;
+
+        return risultato;
     }
 
     public void open()
