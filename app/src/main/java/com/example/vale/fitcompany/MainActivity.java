@@ -19,16 +19,12 @@ public class MainActivity extends AppCompatActivity
 
         db.open();
 
-        Cursor risultato = db.TrovaNomeUtente();
+        boolean checkPass= db.ControllaLogin(1,"P@ssword");
 
-        String str="";
-
-        if (risultato.moveToFirst())
-        {
-            str = risultato.getString(risultato.getColumnIndex("Nome"));
-        }
-
-        Log.d("PrimaQuery", "Nome utente: "+str);
+        if (checkPass==true)
+            Log.d("ProvaQuery", "Login effettuato");
+        else
+            Log.d("ProvaQuery", "Login fallito");
 
         setContentView(R.layout.activity_main);
     }
