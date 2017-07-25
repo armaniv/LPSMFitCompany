@@ -29,61 +29,33 @@ public class DBOperations {
 
     private SQLiteDatabase mDb;
     private DBHelper dbHelper;
-    // private static String DB_PATH = null;
-    private static String DB_PATH = "/data/data/com.example.vale/databases/";
+    private static String DB_PATH = null;
     private static final String DB_NAME = "GymDB.db";
     private static final int DB_VERSION = 1;
 
     private static DBOperations instance = null;
 
-    private DBOperations(Context ctx) {
+    private DBOperations(Context ctx)
+    {
         dbHelper = new DBHelper(ctx, DB_NAME, null, DB_VERSION);
+        DB_PATH = ctx.getDatabasePath(DB_NAME).getPath();
     }
 
-    public static DBOperations getInstance(Context ctx) {
-        if (instance == null) {
+    public static DBOperations getInstance(Context ctx)
+    {
+        if (instance == null)
+        {
             instance = new DBOperations(ctx);
-            // DB_PATH =
-            // ctx.getFilesDir().getPath()+"data/android.lesson02/databases/";
         }
         return instance;
     }
 
-    public void eraseDB(String Param) {
+    public void CancellaTabelleaDB(String Param)
+    {
         mDb.execSQL("DROP TABLE IF EXISTS "+ Param);
     }
 
-    public void populateDB(Context ctx)
-    {
-        BufferedReader reader = null;
-        try
-        {
-            reader = new BufferedReader(
-                    new InputStreamReader(ctx.getAssets().open("Insert.sql"), "UTF-8"));
 
-            // do reading, usually loop until end of file reading
-            String mLine;
-            while ((mLine = reader.readLine()) != null)
-            {
-                mDb.execSQL(mLine);
-            }
-        } catch (Exception e)
-        {
-            Log.e("Errore", "Descrizione: " +e.toString() );
-        } finally
-        {
-            if (reader != null) {
-                try
-                {
-                    reader.close();
-                } catch (Exception e)
-                {
-                    Log.e("Errore", "Descrizione: " +e.toString() );
-                }
-            }
-        }
-    }
-    
     /*
 
     public ArrayList<Article> fetchArticle() {
@@ -137,31 +109,31 @@ public class DBOperations {
         return res;
     }
 
-
     */
 
-    public void open() {
+
+    public Cursor TrovaNomeUtente()
+    {
+        Cursor c=null;
+        try
+        {
+            c = mDb.rawQuery("SELECT Nome FROM Utente WHERE Id= 1", null);
+        }
+        catch (Exception e )
+        {
+            Log.e("Errore", "Errore esecuzione query "+ e.toString());
+        }
+        return c;
+    }
+
+    public void open()
+    {
         mDb = dbHelper.getWritableDatabase();
     }
 
-    public void close() {
+    public void close()
+    {
         mDb.close();
-    }
-
-    public boolean checkDataBase() {
-        SQLiteDatabase checkDB = null;
-
-        try {
-
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null,
-                    SQLiteDatabase.OPEN_READONLY);
-        } catch (SQLiteException e) {
-        }
-        if (checkDB != null) {
-            checkDB.close();
-        }
-        return checkDB != null ? true : false;
     }
 
 }

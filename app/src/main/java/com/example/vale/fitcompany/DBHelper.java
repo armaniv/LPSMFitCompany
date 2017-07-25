@@ -22,38 +22,70 @@ public class DBHelper extends SQLiteOpenHelper {
         this.myContext=context;
     }
 
-    private static final String ARTICLE_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS );";
 
     @Override
     public void onCreate(SQLiteDatabase _db)
     {
+
+        //leggo il file CreateTable.sql dagli assets, creo in tal modo le tabelle
         BufferedReader reader = null;
         try
         {
-            reader = new BufferedReader(
-                    new InputStreamReader(myContext.getAssets().open("CreateTable.sql"), "UTF-8"));
+            reader = new BufferedReader(new InputStreamReader(myContext.getAssets().open("CreateTable.sql"), "UTF-8"));
 
-            // do reading, usually loop until end of file reading
             String mLine;
             while ((mLine = reader.readLine()) != null)
-            {
                 _db.execSQL(mLine);
-            }
-        }  catch (Exception e)
+
+        }
+        catch (Exception e)
         {
-            Log.e("Errore", "Descrizione: " +e.toString() );
-        } finally
+            Log.e("ErroreCreate1", "Descrizione: " +e.toString() );
+        }
+        finally
         {
-            if (reader != null) {
+            if (reader != null)
+            {
                 try
                 {
                     reader.close();
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
-                    Log.e("Errore", "Descrizione: " +e.toString() );
+                    Log.e("ErroreCreate2", "Descrizione: " +e.toString() );
                 }
             }
         }
+
+
+        //leggo il file Insert.sql dagli assets, popolo le tabelle
+        try
+        {
+            reader = new BufferedReader(new InputStreamReader(myContext.getAssets().open("Insert.sql"), "UTF-8"));
+
+            String mLine;
+            while ((mLine = reader.readLine()) != null)
+                _db.execSQL(mLine);
+        }
+        catch (Exception e)
+        {
+            Log.e("ErroreInsert1", "Descrizione: " +e.toString() );
+        }
+        finally
+        {
+            if (reader != null)
+            {
+                try
+                {
+                    reader.close();
+                }
+                catch (Exception e)
+                {
+                    Log.e("ErroreInsert2", "Descrizione: " +e.toString() );
+                }
+            }
+        }
+
     }
 
     @Override
@@ -61,4 +93,6 @@ public class DBHelper extends SQLiteOpenHelper {
         throw new UnsupportedOperationException("You have to implement this in order to upgrade database");
 
     }
+
+
 }
