@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.content.SharedPreferences;
+
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
 
@@ -30,10 +32,24 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+
+        if (!checkCache())
+        {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
 
 
+    }
+    private boolean checkCache()
+    {
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        String username = prefs.getString("username","");
+        String pwd = prefs.getString("password","");
+        if(username=="" || pwd==""){
+            return false;
+        }
+        return true;
     }
 
 }

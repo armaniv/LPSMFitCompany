@@ -2,6 +2,7 @@ package com.example.vale.fitcompany;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -68,22 +69,22 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _idText.getText().toString();
-        String password = _passwordText.getText().toString();
+        final String username = _idText.getText().toString();
+        final String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
         DBOperations db = DBOperations.getInstance(getApplicationContext());
 
         db.open();
 
-       final boolean checkPass= db.ControllaLogin(email,password);
+       final boolean checkPass= db.ControllaLogin(username,password);
         db.close();
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
 
                         if (checkPass==true) {
-                            onLoginSuccess();
+                            onLoginSuccess(username,password);
                         }
                         else {
                             onLoginFailed();
@@ -114,8 +115,13 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    public void onLoginSuccess(String username,String password) {
         _loginButton.setEnabled(true);
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.commit();
         finish();
     }
 
