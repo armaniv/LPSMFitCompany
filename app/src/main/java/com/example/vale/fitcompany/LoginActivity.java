@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vale.fitcompany.DataBase.DBOperations;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -18,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @Bind(R.id.input_email) EditText _emailText;
+    @Bind(R.id.input_id) EditText _idText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
@@ -53,29 +55,40 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         Log.d(TAG, "Login");
 
-        if (!validate()) {
+        /*if (!validate()) {
             onLoginFailed();
             return;
-        }
+        }*/
 
         _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.Theme_AppCompat_DayNight_Dialog);
+                R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
+        String email = _idText.getText().toString();
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+        DBOperations db = DBOperations.getInstance(getApplicationContext());
 
+        db.open();
+
+       final boolean checkPass= db.ControllaLogin(email,password);
+        db.close();
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+
+                        if (checkPass==true) {
+                            onLoginSuccess();
+                        }
+                        else {
+                            onLoginFailed();
+                        }
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
@@ -115,14 +128,14 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
+        String email = _idText.getText().toString();
         String password = _passwordText.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+            _idText.setError("enter a valid email address");
             valid = false;
         } else {
-            _emailText.setError(null);
+            _idText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {

@@ -20,8 +20,9 @@ public class MainActivity extends AppCompatActivity
 
         db.open();
 
-        boolean checkPass= db.ControllaLogin(1,"P@ssword");
 
+        boolean checkPass= db.ControllaLogin("1","P@ssword");
+        db.close();
         if (checkPass==true)
             Log.d("ProvaQuery", "Login effettuato");
         else

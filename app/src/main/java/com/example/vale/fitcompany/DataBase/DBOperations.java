@@ -35,7 +35,7 @@ public class DBOperations {
         mDb.execSQL("DROP TABLE IF EXISTS "+ Param);
     }
 
-    public boolean ControllaLogin(Integer UtenteId, String Password)
+    public boolean ControllaLogin(String UtenteId, String Password)
     {
         boolean risultato=false;
         Cursor curRisultato = null,checkId=null;
@@ -43,7 +43,7 @@ public class DBOperations {
         //recupero la password dell'utente
         try
         {
-            curRisultato = mDb.rawQuery("SELECT Id,Password FROM Utente WHERE Id=?", new String[]{String.valueOf(UtenteId)});
+            curRisultato = mDb.rawQuery("SELECT Id,Password FROM Utente WHERE Id=?", new String[]{UtenteId});
 
             //controllo se la password corrisponde
             if(curRisultato!=null)
