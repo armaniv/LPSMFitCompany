@@ -1,7 +1,6 @@
 package com.example.vale.fitcompany;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity
         else
             Log.d("ProvaQuery", "Login fallito");
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
 
 
         if (!checkCache())
