@@ -73,18 +73,19 @@ public class LoginActivity extends AppCompatActivity {
         final String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
-        DBOperations db = DBOperations.getInstance(getApplicationContext());
+        final DBOperations db = DBOperations.getInstance(getApplicationContext());
 
         db.open();
 
        final boolean checkPass= db.ControllaLogin(username,password);
-        db.close();
+
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
 
                         if (checkPass==true) {
                             onLoginSuccess(username,password);
+                            db.SetIdUtente(getApplicationContext());
                         }
                         else {
                             onLoginFailed();
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+        db.close();
     }
 
 

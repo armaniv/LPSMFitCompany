@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.content.SharedPreferences;
+import android.view.View;
 
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
@@ -22,21 +23,16 @@ public class MainActivity extends AppCompatActivity
         db.open();
 
 
-        boolean checkPass= db.ControllaLogin("1","P@ssword");
-        db.close();
-        if (checkPass==true)
-            Log.d("ProvaQuery", "Login effettuato");
-        else
-            Log.d("ProvaQuery", "Login fallito");
-
         setContentView(R.layout.activity_menu);
 
 
-        if (!checkCache())
-        {
+        if (!checkCache()){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+
+        db.SetIdUtente(getApplicationContext());
+        db.close();
 
 
     }
@@ -49,6 +45,12 @@ public class MainActivity extends AppCompatActivity
             return false;
         }
         return true;
+    }
+
+    public void StartSchede(View v )
+    {
+        Intent intent = new Intent(this, SchedeActivity.class);
+        startActivity(intent);
     }
 
 }
