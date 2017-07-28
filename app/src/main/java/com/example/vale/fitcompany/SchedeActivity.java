@@ -1,6 +1,7 @@
 package com.example.vale.fitcompany;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,7 +32,7 @@ public class SchedeActivity  extends AppCompatActivity
 
         DBOperations db = DBOperations.getInstance(getApplicationContext());
         db.open();
-        ArrayList<Scheda> ListaSchede = db.RecuperaTutteSchedeUtenteConInfo();
+        final ArrayList<Scheda> ListaSchede = db.RecuperaTutteSchedeUtenteConInfo();
         db.close();
 
 
@@ -71,8 +72,13 @@ public class SchedeActivity  extends AppCompatActivity
                 //controllo che non prema sull'intestazione e controllo se ha premuto su un id
                 if (id>0 && id%4==0)
                 {
-                    Toast.makeText(getApplicationContext(), ((TextView)v).getText() + " id: " + id, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), ((TextView)v).getText() + " id: " + id, Toast.LENGTH_SHORT).show();
 
+                    //recupero l'indice della scheda (contenuta nell ArrayList di Schede) e lo passo attravrso l'intent
+                    int indice=  (((int) (long) id)/4)-1;
+                    Scheda schedaSel  = ListaSchede.get(indice);
+                    Intent intent = new Intent(SchedeActivity.this,AllenamentoActivity.class).putExtra("SchedaSelezionata",schedaSel);
+                    startActivity(intent);
                 }
             }
         });

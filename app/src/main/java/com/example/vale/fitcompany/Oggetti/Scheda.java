@@ -1,6 +1,9 @@
 package com.example.vale.fitcompany.Oggetti;
+import java.io.Serializable;
 
-public class Scheda
+
+@SuppressWarnings("serial")
+public class Scheda implements Serializable
 {
     private String Id;  //id della scheda
     private String NVolte;

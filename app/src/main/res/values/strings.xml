@@ -8,4 +8,7 @@
 
     <string name="Titolo_activity_schede">Elenco schede</string>
 
+
+    <string name="SelezionaDay_activity_allena">Seleziona giorno</string>
+
 </resources>
