@@ -20,7 +20,7 @@ public class DBOperations {
     private static String DB_PATH = null;
     private static final String DB_NAME = "GymDB.db";
     private static final int DB_VERSION = 1;
-    private static String ID_UTENTE="";
+    private static String ID_UTENTE="";//conterrà l'ID dell utente una volta effettuato l'accesso
 
     private static DBOperations instance = null;
 
@@ -39,6 +39,7 @@ public class DBOperations {
         return instance;
     }
 
+    //setto la variabile globale ID_UTENTE
     public void SetIdUtente(Context ctx)
     {
         SharedPreferences prefs = ctx.getSharedPreferences("UserData", MODE_PRIVATE);
@@ -65,11 +66,15 @@ public class DBOperations {
         //recupero Id di tutte le schede dell'utente loggato con le relativo relazioni e  le ordino per data
         Cursor c = mDb.rawQuery("SELECT IdScheda, NVolte, Obbiettivo, DataInizio FROM Scheda, Utente_Scheda WHERE Id=IdScheda AND IdUtente=? ORDER BY DataInizio DESC;",  new String[]{ID_UTENTE});
 
+
+        //creo un Arraylist di Schede
         ArrayList<Scheda> risultato=new ArrayList <Scheda> ();
 
         String Nvolte,IdScheda,Obbiettivo,Data_inizio;
         Scheda scheda=null;
 
+
+        //popolo arraylist di schede con le informazioni provenienti dal DB
         if (c.moveToFirst())
         {
             do

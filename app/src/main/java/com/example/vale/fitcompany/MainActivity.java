@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity
         db.open();
 
 
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_main);
 
 
         if (!checkCache()){

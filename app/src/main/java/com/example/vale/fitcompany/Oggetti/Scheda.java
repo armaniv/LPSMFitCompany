@@ -2,10 +2,26 @@ package com.example.vale.fitcompany.Oggetti;
 
 public class Scheda
 {
-    private String Id;
+    private String Id;  //id della scheda
     private String NVolte;
     private String Obbiettivo;
     private String Data_inizio;
+
+    public String getId() {
+        return Id;
+    }
+
+    public String getNVolte() {
+        return NVolte;
+    }
+
+    public String getObbiettivo() {
+        return Obbiettivo;
+    }
+
+    public String getData_inizio() {
+        return Data_inizio;
+    }
 
     public Scheda()
     {

@@ -13,13 +13,19 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_weight="0.86"
         android:background="@color/primary"
-        android:text="@string/Titolo_activity_schede" />
+        android:gravity="center"
+        android:text="@string/Titolo_activity_schede"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
 
     <GridView
         android:id="@+id/GrwElencoSche"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible" />
+        android:layout_height="475dp"
+        android:numColumns="4"
+        android:verticalSpacing="10dp"
+        android:layout_weight="0.14" />
 
 </LinearLayout>

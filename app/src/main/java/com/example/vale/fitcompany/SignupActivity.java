@@ -17,9 +17,6 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
-
-
-
     @Bind(R.id.link_login) TextView _loginLink;
     
     @Override
@@ -27,7 +24,6 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-
 
 
         _loginLink.setOnClickListener(new View.OnClickListener() {
@@ -41,8 +37,5 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 }
