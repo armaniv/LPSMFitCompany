@@ -123,4 +123,41 @@ public class DBOperations {
         return risultato;
     }
 
+    public int GiornoCorrente()
+    {
+        int ris=0;
+        Cursor c = mDb.rawQuery("SELECT Day_corrente FROM  Utente WHERE Id=?;",  new String[]{ID_UTENTE});
+
+        if (c.moveToFirst())
+            ris= Integer.parseInt(c.getString(c.getColumnIndex("Day_corrente")));
+
+        return ris;
+    }
+
+    public List<String> RecuperaGiornoAllenamento(int idscheda,int day)
+    {
+        //recupero il giorno di allenamento all'interno della scheda
+        Cursor c = mDb.rawQuery("SELECT Nome, Set_Rip, Peso, Note FROM Scheda_Esercizio, Esercizio WHERE Id=IdEsercizio AND IdScheda=? AND NGiorno=?",  new String[]{String.valueOf(idscheda),String.valueOf(day)});
+
+        //creo un Arraylist di Stringhe
+        List<String>  risultato= new ArrayList<String>();
+        String str;
+
+        //popolo arraylist con le informazioni provenienti dal DB
+        if (c.moveToFirst()) {
+            do {
+                str = c.getString(c.getColumnIndex("Nome"));
+                risultato.add(str);
+                str = c.getString(c.getColumnIndex("Set_Rip"));
+                risultato.add(str);
+                str = c.getString(c.getColumnIndex("Peso"));
+                risultato.add(str);
+                str = c.getString(c.getColumnIndex("Note"));
+                risultato.add(str);
+
+            } while (c.moveToNext());
+        }
+        return risultato;
+    }
+
 }
