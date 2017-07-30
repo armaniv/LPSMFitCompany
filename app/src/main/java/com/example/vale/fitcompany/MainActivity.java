@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity
         db.open();
 
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
 
 
         if (!checkCache()){
@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity
     public void StartSchede(View v )
     {
         Intent intent = new Intent(this, SchedeActivity.class);
+        startActivity(intent);
+    }
+    public void StartTrainers(View v )
+    {
+        Intent intent = new Intent(this, TrainersActivity.class);
         startActivity(intent);
     }
 
