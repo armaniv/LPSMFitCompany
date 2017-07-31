@@ -12,11 +12,12 @@ import android.view.View;
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
 import com.example.vale.fitcompany.Oggetti.Scheda;
+import com.example.vale.fitcompany.Oggetti.Allenamento;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.vale.fitcompany.Adapter.TextViewAdapter;
+import com.example.vale.fitcompany.Adapter.AdapterVisuAllenamenti;
 
 
 public class AllenamentoActivity extends AppCompatActivity
@@ -81,21 +82,15 @@ public class AllenamentoActivity extends AppCompatActivity
         DBOperations db = DBOperations.getInstance(getApplicationContext());
         db.open();
 
-        List<String> items = new ArrayList<String>();
+        List<Allenamento> items = new ArrayList<Allenamento>();
 
         items= db.RecuperaGiornoAllenamento(schedaid,Giorno );
         db.close();
 
-
         GridView grid = (GridView) findViewById(R.id.grwAllenamento);
-       // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
 
-        grid.setAdapter(new TextViewAdapter(this, items));
+        grid.setAdapter(new AdapterVisuAllenamenti(this, items));
 
-        /*
-        adapter.notifyDataSetChanged();
-        grid.invalidateViews();
-        grid.setAdapter(adapter);*/
     }
 }
 

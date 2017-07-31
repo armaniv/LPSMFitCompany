@@ -10,19 +10,44 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.vale.fitcompany.Oggetti.Allenamento;
 import com.example.vale.fitcompany.R;
 
 
 
-public class TextViewAdapter extends BaseAdapter {
+public class AdapterVisuAllenamenti extends BaseAdapter
+{
     private Context context;
-    private  List<String> textViewValues = new ArrayList<String>();
+    private  List<Allenamento> ListaValori = new ArrayList<Allenamento>();
+    private  List<String> ListaStringheValori = new ArrayList<String>();
 
-    public TextViewAdapter(Context context,  List<String> textViewValues)
+    public AdapterVisuAllenamenti(Context context, List<Allenamento> ListaValori)
     {
         this.context = context;
-        this.textViewValues = textViewValues;
+        this.ListaValori = ListaValori;
+
+        ListaStringheValori.add("Es");
+        ListaStringheValori.add("Set");
+        ListaStringheValori.add("Kg");
+        ListaStringheValori.add("Note");
+
+        String str;
+        for (int i = 0; i < ListaValori.size(); i++)
+        {
+            str = ListaValori.get(i).getNomeEs();
+            ListaStringheValori.add(str);
+
+            str = ListaValori.get(i).getSet();
+            ListaStringheValori.add(str);
+
+            str = ListaValori.get(i).getPeso();
+            ListaStringheValori.add(str);
+
+            str = ListaValori.get(i).getNote();
+            ListaStringheValori.add(str);
+        }
     }
+
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -43,8 +68,8 @@ public class TextViewAdapter extends BaseAdapter {
                 gridView = inflater.inflate(R.layout.item_edittext, null);
 
                 // set value into textview
-                EditText textView = (EditText) gridView.findViewById(R.id.grid_item_label);
-                textView.setText(textViewValues.get(position));
+                EditText editText = (EditText) gridView.findViewById(R.id.grid_item_label);
+                editText.setText(ListaStringheValori.get(position));
             }
             else
             {
@@ -52,7 +77,7 @@ public class TextViewAdapter extends BaseAdapter {
 
                 // set value into textview
                TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
-                textView.setText(textViewValues.get(position));
+                textView.setText(ListaStringheValori.get(position));
 
             }
         }
@@ -66,7 +91,7 @@ public class TextViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return textViewValues.size();
+        return ListaStringheValori.size();
     }
 
     @Override
