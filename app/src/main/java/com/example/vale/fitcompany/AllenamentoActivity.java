@@ -82,7 +82,7 @@ public class AllenamentoActivity extends AppCompatActivity
 
         List<String> items = new ArrayList<String>();
 
-        items= db.RecuperaGiornoAllenamento(Giorno, schedaid);
+        items= db.RecuperaGiornoAllenamento(schedaid,Giorno );
         db.close();
 
 

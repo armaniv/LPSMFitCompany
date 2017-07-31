@@ -139,8 +139,13 @@ public class DBOperations {
         //recupero il giorno di allenamento all'interno della scheda
         Cursor c = mDb.rawQuery("SELECT Nome, Set_Rip, Peso, Note FROM Scheda_Esercizio, Esercizio WHERE Id=IdEsercizio AND IdScheda=? AND NGiorno=?",  new String[]{String.valueOf(idscheda),String.valueOf(day)});
 
+
         //creo un Arraylist di Stringhe
         List<String>  risultato= new ArrayList<String>();
+        risultato.add("Es");
+        risultato.add("Set");
+        risultato.add("Kg");
+        risultato.add("Note");
         String str;
 
         //popolo arraylist con le informazioni provenienti dal DB
