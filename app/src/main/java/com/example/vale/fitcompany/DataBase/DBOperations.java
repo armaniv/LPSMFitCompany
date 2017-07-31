@@ -4,13 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.transition.Scene;
 import android.util.Log;
 import java.util.ArrayList;
 
 import com.example.vale.fitcompany.Oggetti.Scheda;
 import com.example.vale.fitcompany.Oggetti.Trainer;
-
+import com.example.vale.fitcompany.Oggetti.Allenamento;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -68,13 +67,11 @@ public class DBOperations {
         //recupero Id di tutte le schede dell'utente loggato con le relativo relazioni e  le ordino per data
         Cursor c = mDb.rawQuery("SELECT IdScheda, NVolte, Obbiettivo, DataInizio FROM Scheda, Utente_Scheda WHERE Id=IdScheda AND IdUtente=? ORDER BY DataInizio DESC;",  new String[]{ID_UTENTE});
 
-
         //creo un Arraylist di Schede
         ArrayList<Scheda> risultato=new ArrayList <Scheda> ();
 
         String Nvolte,IdScheda,Obbiettivo,Data_inizio;
         Scheda scheda=null;
-
 
         //popolo arraylist di schede con le informazioni provenienti dal DB
         if (c.moveToFirst())
@@ -87,7 +84,6 @@ public class DBOperations {
                 Data_inizio = c.getString(c.getColumnIndex("DataInizio"));
 
                 scheda = new Scheda(IdScheda,Nvolte,Obbiettivo,Data_inizio);
-
                 risultato.add(scheda);
 
             } while (c.moveToNext());
@@ -136,26 +132,26 @@ public class DBOperations {
         return ris;
     }
 
-    public List<String> RecuperaGiornoAllenamento(int idscheda,int day)
+    public List<Allenamento> RecuperaGiornoAllenamento(int idscheda,int day)
     {
         //recupero il giorno di allenamento all'interno della scheda
-        Cursor c = mDb.rawQuery("SELECT Nome, Set_Rip, Peso, Note FROM Scheda_Esercizio, Esercizio WHERE Id=IdEsercizio AND IdScheda=? AND NGiorno=?",  new String[]{String.valueOf(idscheda),String.valueOf(day)});
+        Cursor c = mDb.rawQuery("SELECT Esercizio.Id, Nome, Set_Rip, Peso, Note FROM Scheda_Esercizio, Esercizio WHERE Id=IdEsercizio AND IdScheda=? AND NGiorno=?",  new String[]{String.valueOf(idscheda),String.valueOf(day)});
 
-        //creo un Arraylist di Stringhe
-        List<String>  risultato= new ArrayList<String>();
-        String str;
+        List<Allenamento>  risultato= new ArrayList<Allenamento>();
+        String idEsercizio="", Nome, Set_Rip, Peso, Note;
 
-        //popolo arraylist con le informazioni provenienti dal DB
+        Allenamento allenamento=null;
+
         if (c.moveToFirst()) {
             do {
-                str = c.getString(c.getColumnIndex("Nome"));
-                risultato.add(str);
-                str = c.getString(c.getColumnIndex("Set_Rip"));
-                risultato.add(str);
-                str = c.getString(c.getColumnIndex("Peso"));
-                risultato.add(str);
-                str = c.getString(c.getColumnIndex("Note"));
-                risultato.add(str);
+                idEsercizio = c.getString(c.getColumnIndex("Id"));
+                Nome = c.getString(c.getColumnIndex("Nome"));
+                Set_Rip = c.getString(c.getColumnIndex("Set_Rip"));
+                Peso = c.getString(c.getColumnIndex("Peso"));
+                Note = c.getString(c.getColumnIndex("Note"));
+
+                allenamento= new Allenamento(idEsercizio,Nome,Set_Rip,Peso,Note);
+                risultato.add(allenamento);
 
             } while (c.moveToNext());
         }

@@ -3,7 +3,6 @@ package com.example.vale.fitcompany;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -13,9 +12,12 @@ import android.view.View;
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
 import com.example.vale.fitcompany.Oggetti.Scheda;
+import com.example.vale.fitcompany.Oggetti.Allenamento;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.vale.fitcompany.Adapter.AdapterVisuAllenamenti;
 
 
 public class AllenamentoActivity extends AppCompatActivity
@@ -80,17 +82,16 @@ public class AllenamentoActivity extends AppCompatActivity
         DBOperations db = DBOperations.getInstance(getApplicationContext());
         db.open();
 
-        List<String> items = new ArrayList<String>();
+        List<Allenamento> items = new ArrayList<Allenamento>();
 
-        items= db.RecuperaGiornoAllenamento(Giorno, schedaid);
+        items= db.RecuperaGiornoAllenamento(schedaid,Giorno );
         db.close();
 
-
         GridView grid = (GridView) findViewById(R.id.grwAllenamento);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
 
-        adapter.notifyDataSetChanged();
-        grid.invalidateViews();
-        grid.setAdapter(adapter);
+        grid.setAdapter(new AdapterVisuAllenamenti(this, items));
+
     }
 }
+
+
