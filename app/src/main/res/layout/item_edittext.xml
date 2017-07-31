@@ -1,8 +1,8 @@
-<TextView android:id="@+id/grid_item_label"
+<EditText android:id="@+id/grid_item_label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@+id/label"
     android:padding="10dp"
     android:textSize="18dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
-</TextView>
+</EditText>

@@ -3,7 +3,6 @@ package com.example.vale.fitcompany;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -16,6 +15,8 @@ import com.example.vale.fitcompany.Oggetti.Scheda;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.vale.fitcompany.Adapter.TextViewAdapter;
 
 
 public class AllenamentoActivity extends AppCompatActivity
@@ -87,10 +88,15 @@ public class AllenamentoActivity extends AppCompatActivity
 
 
         GridView grid = (GridView) findViewById(R.id.grwAllenamento);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
+       // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
 
+        grid.setAdapter(new TextViewAdapter(this, items));
+
+        /*
         adapter.notifyDataSetChanged();
         grid.invalidateViews();
-        grid.setAdapter(adapter);
+        grid.setAdapter(adapter);*/
     }
 }
+
+
