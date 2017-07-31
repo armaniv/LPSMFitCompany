@@ -9,16 +9,25 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.vale.fitcompany.DataBase.DBOperations;
+import com.example.vale.fitcompany.Oggetti.Trainer;
 import com.example.vale.fitcompany.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.vale.fitcompany.R.drawable.trainerplaceholder;
 
 public class TrainersActivity extends AppCompatActivity {
 
@@ -26,8 +35,14 @@ public class TrainersActivity extends AppCompatActivity {
     private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
-    private int[] layouts;
     private Button btnSkip, btnNext;
+    private ImageView imageTrainer;
+    private TextView trainerName,trainerDesc;
+    private View v ;
+
+    DBOperations db;
+    private List<Trainer> trainers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +52,13 @@ public class TrainersActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_trainers);
+        db = DBOperations.getInstance(getApplicationContext());
+        db.open();
+        trainers = db.GetTrainers();
+
+
+        View v = getLayoutInflater().inflate(R.layout.trainers1, null);
+
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
@@ -44,12 +66,10 @@ public class TrainersActivity extends AppCompatActivity {
         btnNext = (Button) findViewById(R.id.btn_next);
 
 
+
         // layouts of all welcome sliders
         // add few more layouts if you want
-        layouts = new int[]{
-                R.layout.trainers1,
-                R.layout.trainers2,
-               };
+
 
         // adding bottom dots
         addBottomDots(0);
@@ -74,8 +94,9 @@ public class TrainersActivity extends AppCompatActivity {
                 // checking for last page
                 // if last page home screen will be launched
                 int current = getItem(1);
-                if (current < layouts.length) {
+                if (current < trainers.size()) {
                     // move to next screen
+                    setTrainer(current);
                     viewPager.setCurrentItem(current);
                 } else {
                     launchHomeScreen();
@@ -85,26 +106,36 @@ public class TrainersActivity extends AppCompatActivity {
     }
 
     private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
+        dots = new TextView[trainers.size()];
 
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+        int colorsActive = getResources().getColor(R.color.dot_light_screen1);
+        int colorsInactive = getResources().getColor(R.color.dot_dark_screen1);
 
         dotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
-            dots[i].setTextColor(colorsInactive[currentPage]);
+            dots[i].setTextColor(colorsInactive);
             dotsLayout.addView(dots[i]);
         }
 
         if (dots.length > 0)
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
+            dots[currentPage].setTextColor(colorsActive);
     }
 
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
+    }
+    private void setTrainer(int i)
+    {
+
+
+        imageTrainer.setImageResource(R.drawable.trainerplaceholder);
+        trainerName.setText(trainers.get(i).getNome() + " " + trainers.get(i).getCognome());
+        trainerDesc.setText(trainers.get(i).getSpecialita());
+
+
     }
 
     private void launchHomeScreen() {
@@ -161,15 +192,20 @@ public class TrainersActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View view = layoutInflater.inflate(layouts[position], container, false);
-            container.addView(view);
+            v = layoutInflater.inflate(R.layout.trainers1, container, false);
+            imageTrainer = (ImageView) v.findViewById(R.id.trainerPic);
+            trainerName = (TextView) v.findViewById(R.id.trainerName);
+            trainerDesc = (TextView) v.findViewById(R.id.trainerDesc);
+            setTrainer(0);
 
-            return view;
+            container.addView(v);
+
+            return v;
         }
 
         @Override
         public int getCount() {
-            return layouts.length;
+            return trainers.size();
         }
 
         @Override

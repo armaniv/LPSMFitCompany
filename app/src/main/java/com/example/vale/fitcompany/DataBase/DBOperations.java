@@ -9,6 +9,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import com.example.vale.fitcompany.Oggetti.Scheda;
+import com.example.vale.fitcompany.Oggetti.Trainer;
+
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -154,6 +156,29 @@ public class DBOperations {
                 risultato.add(str);
                 str = c.getString(c.getColumnIndex("Note"));
                 risultato.add(str);
+
+            } while (c.moveToNext());
+        }
+        return risultato;
+    }
+    public List<Trainer> GetTrainers()
+    {
+        //recupero il giorno di allenamento all'interno della scheda
+        Cursor c = mDb.rawQuery("SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore",new String[]{});
+
+        //creo un Arraylist di Stringhe
+        List<Trainer>  risultato= new ArrayList<Trainer>();
+        int tmp1;
+        String tmp2,tmp3,tmp4;
+
+        //popolo arraylist con le informazioni provenienti dal DB
+        if (c.moveToFirst()) {
+            do {
+                tmp1 = c.getInt(c.getColumnIndex("Id"));
+                tmp2 = c.getString(c.getColumnIndex("Nome"));
+                tmp3 = c.getString(c.getColumnIndex("Cognome"));
+                tmp4 = c.getString(c.getColumnIndex("Specializzazione"));
+                risultato.add(new Trainer(tmp1,tmp2,tmp3,tmp4));
 
             } while (c.moveToNext());
         }

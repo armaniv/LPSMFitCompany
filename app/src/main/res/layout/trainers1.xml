@@ -11,11 +11,13 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/trainerPic"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/trainerplaceholder" />
 
         <TextView
+            android:id="@+id/trainerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tesxt"
@@ -24,6 +26,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/trainerDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
