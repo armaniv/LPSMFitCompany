@@ -57,9 +57,6 @@ public class TrainersActivity extends AppCompatActivity {
         trainers = db.GetTrainers();
 
 
-        View v = getLayoutInflater().inflate(R.layout.trainers1, null);
-
-
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
