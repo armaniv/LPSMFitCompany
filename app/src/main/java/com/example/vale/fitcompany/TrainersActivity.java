@@ -9,7 +9,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +21,8 @@ import android.widget.TextView;
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
 import com.example.vale.fitcompany.Oggetti.Trainer;
-import com.example.vale.fitcompany.R;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.vale.fitcompany.R.drawable.trainerplaceholder;
 
 public class TrainersActivity extends AppCompatActivity {
 
@@ -35,7 +30,7 @@ public class TrainersActivity extends AppCompatActivity {
     private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
-    private Button btnSkip, btnNext;
+    private Button btnContact, btnNext;
     private ImageView imageTrainer;
     private TextView trainerName,trainerDesc;
     private View v ;
@@ -59,14 +54,12 @@ public class TrainersActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
+        btnContact = (Button) findViewById(R.id.btn_contact);
         btnNext = (Button) findViewById(R.id.btn_next);
 
-
-
-        // layouts of all welcome sliders
-        // add few more layouts if you want
-
+        myViewPagerAdapter = new MyViewPagerAdapter();
+        viewPager.setAdapter(myViewPagerAdapter);
+        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
         // adding bottom dots
         addBottomDots(0);
@@ -74,11 +67,9 @@ public class TrainersActivity extends AppCompatActivity {
         // making notification bar transparent
         changeStatusBarColor();
 
-        myViewPagerAdapter = new MyViewPagerAdapter();
-        viewPager.setAdapter(myViewPagerAdapter);
-        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
+
+        btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchHomeScreen();
@@ -93,7 +84,7 @@ public class TrainersActivity extends AppCompatActivity {
                 int current = getItem(1);
                 if (current < trainers.size()) {
                     // move to next screen
-                    setTrainer(current);
+                   // setTrainer(current);
                     viewPager.setCurrentItem(current);
                 } else {
                     launchHomeScreen();
@@ -101,6 +92,7 @@ public class TrainersActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void addBottomDots(int currentPage) {
         dots = new TextView[trainers.size()];
@@ -127,7 +119,9 @@ public class TrainersActivity extends AppCompatActivity {
     private void setTrainer(int i)
     {
 
-
+        imageTrainer = (ImageView) v.findViewById(R.id.trainerPic);
+        trainerName = (TextView) v.findViewById(R.id.trainerName);
+        trainerDesc = (TextView) v.findViewById(R.id.trainerDesc);
         imageTrainer.setImageResource(R.drawable.trainerplaceholder);
         trainerName.setText(trainers.get(i).getNome() + " " + trainers.get(i).getCognome());
         trainerDesc.setText(trainers.get(i).getSpecialita());
@@ -145,13 +139,19 @@ public class TrainersActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
+
+
+            //setTrainer(position);
             addBottomDots(position);
 
-            // changing the next button text 'NEXT' / 'GOT IT'
+            if (position == trainers.size()-1) {
+                // last page. make button text to GOT IT
+                btnNext.setVisibility(View.GONE);
+            } else {
                 // still pages are left
-                btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
+                btnNext.setVisibility(View.VISIBLE);
 
+            }
         }
 
         @Override
@@ -190,10 +190,9 @@ public class TrainersActivity extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             v = layoutInflater.inflate(R.layout.trainers1, container, false);
-            imageTrainer = (ImageView) v.findViewById(R.id.trainerPic);
-            trainerName = (TextView) v.findViewById(R.id.trainerName);
-            trainerDesc = (TextView) v.findViewById(R.id.trainerDesc);
-            setTrainer(0);
+
+            setTrainer(position);
+
 
             container.addView(v);
 
