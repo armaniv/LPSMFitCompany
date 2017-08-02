@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.TextView;
 
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
@@ -13,12 +14,14 @@ import com.example.vale.fitcompany.DataBase.DBOperations;
 
 public class MainActivity extends AppCompatActivity
 {
+    TextView gymName;
+    DBOperations db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        DBOperations db = DBOperations.getInstance(getApplicationContext());
+        db = DBOperations.getInstance(getApplicationContext());
 
         db.open();
 
@@ -32,8 +35,23 @@ public class MainActivity extends AppCompatActivity
         }
 
         db.SetIdUtente(getApplicationContext());
+        findGym();
         db.close();
 
+
+
+
+    }
+    private void findGym()
+    {
+        String gym=db.getGym();
+        gymName=(TextView) findViewById(R.id.textGymname);
+        gymName.setText(gym);
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Gym",gym );
+        editor.commit();
+        db.SetGym(getApplicationContext());
 
     }
     private boolean checkCache()

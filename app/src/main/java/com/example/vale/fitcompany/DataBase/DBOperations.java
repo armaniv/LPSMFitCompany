@@ -22,6 +22,8 @@ public class DBOperations {
     private static final String DB_NAME = "GymDB.db";
     private static final int DB_VERSION = 1;
     private static String ID_UTENTE="";//conterrà l'ID dell utente una volta effettuato l'accesso
+    private static String GYM;
+
 
     private static DBOperations instance = null;
 
@@ -47,6 +49,12 @@ public class DBOperations {
         String username = prefs.getString("username","");
         ID_UTENTE=username;
     }
+    public void SetGym(Context ctx)
+    {
+        SharedPreferences prefs = ctx.getSharedPreferences("UserData", MODE_PRIVATE);
+        String gym = prefs.getString("Gym","");
+        GYM=gym;
+    }
 
     public void open()
     {
@@ -61,6 +69,14 @@ public class DBOperations {
 
    //----------------------inizio operazioni db----------------------------------------------
 
+    public String getGym()
+    {
+        Cursor c = mDb.rawQuery("SELECT Palestra FROM Utente WHERE Id=?;",  new String[]{ID_UTENTE});
+        c.moveToFirst();
+        return c.getString(c.getColumnIndex("Palestra"));
+
+
+    }
 
     public ArrayList<Scheda> RecuperaTutteSchedeUtenteConInfo()
     {
@@ -149,7 +165,6 @@ public class DBOperations {
                 Set_Rip = c.getString(c.getColumnIndex("Set_Rip"));
                 Peso = c.getString(c.getColumnIndex("Peso"));
                 Note = c.getString(c.getColumnIndex("Note"));
-
                 allenamento= new Allenamento(idEsercizio,Nome,Set_Rip,Peso,Note);
                 risultato.add(allenamento);
 
@@ -160,7 +175,7 @@ public class DBOperations {
     public List<Trainer> GetTrainers()
     {
         //recupero il giorno di allenamento all'interno della scheda
-        Cursor c = mDb.rawQuery("SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore",new String[]{});
+        Cursor c = mDb.rawQuery("SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore WHERE IdPalestra=?",new String[]{GYM});
 
         //creo un Arraylist di Stringhe
         List<Trainer>  risultato= new ArrayList<Trainer>();
