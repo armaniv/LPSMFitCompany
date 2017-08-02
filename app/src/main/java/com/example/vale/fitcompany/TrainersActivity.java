@@ -34,7 +34,7 @@ public class TrainersActivity extends AppCompatActivity {
     private ImageView imageTrainer;
     private TextView trainerName,trainerDesc;
     private View v ;
-
+    Intent intent;
     DBOperations db;
     private List<Trainer> trainers;
 
@@ -72,7 +72,12 @@ public class TrainersActivity extends AppCompatActivity {
         btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                //TODO contact trainer
+                int current= getItem(0);
+                intent = new Intent(v.getContext(), ContactActivity.class);
+                intent.putExtra("trainer",trainers.get(current));
+                startActivity(intent);
+
             }
         });
 
