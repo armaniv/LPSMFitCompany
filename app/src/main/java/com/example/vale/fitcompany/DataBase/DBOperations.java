@@ -1,5 +1,6 @@
 package com.example.vale.fitcompany.DataBase;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -172,6 +173,8 @@ public class DBOperations {
         }
         return risultato;
     }
+
+
     public List<Trainer> GetTrainers()
     {
         //recupero il giorno di allenamento all'interno della scheda
@@ -193,6 +196,48 @@ public class DBOperations {
 
             } while (c.moveToNext());
         }
+        return risultato;
+    }
+
+    public boolean SalvaGiornoAllenamento(String schedaid, Integer dayallenamento,List<String> CampiEditText)
+    {
+        boolean risultato=true;
+        int idscheda = Integer.parseInt(schedaid);
+
+        List<Allenamento> schedaVisualizzata = RecuperaGiornoAllenamento(idscheda,dayallenamento);
+
+        Cursor c;
+        String idEsercizio,SetRip,Peso,Note;
+        int indiceListaEditText=0;
+        ContentValues cv = new ContentValues();
+
+        try
+        {
+            for (int i=0;i<schedaVisualizzata.size();i++)
+            {
+                idEsercizio=schedaVisualizzata.get(i).getIdEs();
+                SetRip=schedaVisualizzata.get(i).getSet();
+                Peso=CampiEditText.get(indiceListaEditText);
+                indiceListaEditText++;
+                Note=CampiEditText.get(indiceListaEditText);
+                indiceListaEditText++;
+
+                cv.clear();
+                cv.put("IdScheda",idscheda);
+                cv.put("IdEsercizio",idEsercizio);
+                cv.put("Set_Rip",SetRip);
+                cv.put("Peso",Peso);
+                cv.put("Note",Note);
+
+                mDb.update("Scheda_Esercizio", cv, "IdScheda="+schedaid +" AND IdEsercizio="+idEsercizio,null);
+            }
+        }
+        catch (Exception e)
+        {
+            risultato=false;
+            Log.e("Errore", "SalvaGiornoAllenamento: "+ e.toString() );
+        }
+
         return risultato;
     }
 
