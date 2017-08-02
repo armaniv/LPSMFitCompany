@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import java.util.ArrayList;
 
+import com.example.vale.fitcompany.Oggetti.News;
 import com.example.vale.fitcompany.Oggetti.Scheda;
 import com.example.vale.fitcompany.Oggetti.Trainer;
 import com.example.vale.fitcompany.Oggetti.Allenamento;
@@ -177,15 +178,12 @@ public class DBOperations {
 
     public List<Trainer> GetTrainers()
     {
-        //recupero il giorno di allenamento all'interno della scheda
         Cursor c = mDb.rawQuery("SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore WHERE IdPalestra=?",new String[]{GYM});
 
-        //creo un Arraylist di Stringhe
         List<Trainer>  risultato= new ArrayList<Trainer>();
         int tmp1;
         String tmp2,tmp3,tmp4;
 
-        //popolo arraylist con le informazioni provenienti dal DB
         if (c.moveToFirst()) {
             do {
                 tmp1 = c.getInt(c.getColumnIndex("Id"));
@@ -193,6 +191,24 @@ public class DBOperations {
                 tmp3 = c.getString(c.getColumnIndex("Cognome"));
                 tmp4 = c.getString(c.getColumnIndex("Specializzazione"));
                 risultato.add(new Trainer(tmp1,tmp2,tmp3,tmp4));
+
+            } while (c.moveToNext());
+        }
+        return risultato;
+    }
+    public List<News> GetNews()
+    {
+        Cursor c = mDb.rawQuery("SELECT * FROM Notizia WHERE IdPalestra=?",new String[]{GYM});
+
+        List<News>  risultato= new ArrayList<>();
+        String tmp2,tmp3,tmp4;
+
+        if (c.moveToFirst()) {
+            do {
+                tmp2 = c.getString(c.getColumnIndex("IdPalestra"));
+                tmp3 = c.getString(c.getColumnIndex("Descrizione"));
+                tmp4 = c.getString(c.getColumnIndex("Data"));
+                risultato.add(new News(tmp2,tmp3,tmp4));
 
             } while (c.moveToNext());
         }

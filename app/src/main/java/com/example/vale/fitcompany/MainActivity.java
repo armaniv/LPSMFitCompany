@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
+import com.example.vale.fitcompany.Oggetti.News;
 
 
 public class MainActivity extends AppCompatActivity
@@ -73,6 +74,11 @@ public class MainActivity extends AppCompatActivity
     public void StartTrainers(View v )
     {
         Intent intent = new Intent(this, TrainersActivity.class);
+        startActivity(intent);
+    }
+    public void StartNews(View v )
+    {
+        Intent intent = new Intent(this, NewsActivity.class);
         startActivity(intent);
     }
 

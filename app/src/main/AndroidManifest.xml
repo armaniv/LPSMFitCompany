@@ -29,7 +29,11 @@
             android:name=".AllenamentoActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity android:name=".TrainersActivity" />
-        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".ContactActivity" />
+        <activity
+            android:name=".NewsActivity"
+            android:label="@string/title_activity_news"
+            android:theme="@style/AppTheme.Dark"></activity>
     </application>
 
 </manifest>

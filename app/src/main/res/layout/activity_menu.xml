@@ -121,6 +121,7 @@
             android:background="?android:selectableItemBackground"
             android:maxHeight="90dp"
             android:scaleType="fitCenter"
+            android:onClick="StartNews"
             app:srcCompat="@mipmap/news" />
 
         <ImageButton

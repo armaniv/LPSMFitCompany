@@ -12,5 +12,6 @@
 
     <string name="SelezionaDay_activity_allena">Seleziona giorno</string>
     <string name="Btn_activity_allena">Salva</string>
+    <string name="title_activity_news">News</string>
 
 </resources>
