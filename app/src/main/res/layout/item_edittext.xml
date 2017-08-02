@@ -1,4 +1,4 @@
-<EditText android:id="@+id/grid_item_label"
+<EditText android:id="@+id/grid_item_label1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@+id/label"

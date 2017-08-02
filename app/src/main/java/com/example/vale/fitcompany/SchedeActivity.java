@@ -40,7 +40,6 @@ public class SchedeActivity  extends AppCompatActivity
         {
             public void onItemClick(AdapterView<?> parent, View v,int position, long id)
             {
-                Log.d("Borsa", "id " + position);
                 //controllo che non prema sull'intestazione e controllo se ha premuto su un id
                 if (position>0 && position%4==0)
                 {

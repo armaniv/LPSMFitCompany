@@ -3,12 +3,14 @@ package com.example.vale.fitcompany;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
 import com.example.vale.fitcompany.Oggetti.Scheda;
@@ -22,6 +24,10 @@ import com.example.vale.fitcompany.Adapter.AdapterVisuAllenamenti;
 
 public class AllenamentoActivity extends AppCompatActivity
 {
+    int GIORNOALLENAMENTOSCELTO;
+    String SCHEDAID;
+    AdapterVisuAllenamenti adapterGrid;
+
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -29,12 +35,13 @@ public class AllenamentoActivity extends AppCompatActivity
 
         Intent i = getIntent();
         Scheda scheda = (Scheda) i.getSerializableExtra("SchedaSelezionata");
-        final String schedaid= scheda.getId();
+        //final String schedaid= scheda.getId();
+        SCHEDAID= scheda.getId();
 
 
         //setto titolo
         TextView TestoTitolo = (TextView) findViewById(R.id.txtTitoloAllena);
-        TestoTitolo.setText("Identificativo scheda: " + schedaid);
+        TestoTitolo.setText("Identificativo scheda: " + SCHEDAID);
         TestoTitolo.setKeyListener(null);
 
         //setto elementi spinner (numero compoenti e numero selezionato)
@@ -55,14 +62,14 @@ public class AllenamentoActivity extends AppCompatActivity
 
         spinner.setSelection((GiornoPrevisto-1));
 
-        SettaTabella(GiornoPrevisto,schedaid);
+        SettaTabella(GiornoPrevisto,SCHEDAID);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
             {
                 int gg= ((int) (long) id)+1;
-                SettaTabella(gg,schedaid);
+                SettaTabella(gg,SCHEDAID);
             }
 
             @Override
@@ -77,6 +84,8 @@ public class AllenamentoActivity extends AppCompatActivity
 
     public void SettaTabella(int Giorno, String idscheda)
     {
+        GIORNOALLENAMENTOSCELTO=Giorno;
+
         int schedaid=Integer.parseInt(idscheda);
 
         DBOperations db = DBOperations.getInstance(getApplicationContext());
@@ -89,8 +98,24 @@ public class AllenamentoActivity extends AppCompatActivity
 
         GridView grid = (GridView) findViewById(R.id.grwAllenamento);
 
-        grid.setAdapter(new AdapterVisuAllenamenti(this, items));
+        adapterGrid= new AdapterVisuAllenamenti(this, items);
+        grid.setAdapter(adapterGrid);
+    }
 
+
+    public void SalvaScheda(View v )
+    {
+        List<String> CampiEdtTxt =  adapterGrid.RitornaEditTextList();
+
+        DBOperations db = DBOperations.getInstance(getApplicationContext());
+        db.open();
+        boolean check= db.SalvaGiornoAllenamento(SCHEDAID,GIORNOALLENAMENTOSCELTO,CampiEdtTxt);
+        db.close();
+
+        if (check==true)
+            Toast.makeText(getApplicationContext(), "Modifiche salvate", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplicationContext(), "Modifiche NON salvate", Toast.LENGTH_SHORT).show();
     }
 }
 
