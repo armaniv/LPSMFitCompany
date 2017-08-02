@@ -16,45 +16,26 @@ import com.example.vale.fitcompany.Oggetti.News;
 public class MainActivity extends AppCompatActivity
 {
     TextView gymName;
-    DBOperations db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        db = DBOperations.getInstance(getApplicationContext());
-
-        db.open();
-
-
-        setContentView(R.layout.activity_menu);
-
 
         if (!checkCache()){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+        else{
+            Intent intent = new Intent(this, StarterActivity.class);
+            startActivity(intent);
 
-        db.SetIdUtente(getApplicationContext());
-        findGym();
-        db.close();
+        }
 
-
-
-
-    }
-    private void findGym()
-    {
-        String gym=db.getGym();
-        gymName=(TextView) findViewById(R.id.textGymname);
-        gymName.setText(gym);
-        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("Gym",gym );
-        editor.commit();
-        db.SetGym(getApplicationContext());
 
     }
+
     private boolean checkCache()
     {
         SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
@@ -66,20 +47,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void StartSchede(View v )
-    {
-        Intent intent = new Intent(this, SchedeActivity.class);
-        startActivity(intent);
-    }
-    public void StartTrainers(View v )
-    {
-        Intent intent = new Intent(this, TrainersActivity.class);
-        startActivity(intent);
-    }
-    public void StartNews(View v )
-    {
-        Intent intent = new Intent(this, NewsActivity.class);
-        startActivity(intent);
-    }
 
 }

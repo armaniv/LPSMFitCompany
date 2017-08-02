@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    DBOperations db;
 
     @Bind(R.id.input_id) EditText _idText;
     @Bind(R.id.input_password) EditText _passwordText;
@@ -73,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         final String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
-        final DBOperations db = DBOperations.getInstance(getApplicationContext());
+         db = DBOperations.getInstance(getApplicationContext());
 
         db.open();
 
@@ -86,6 +87,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (checkPass==true) {
                             onLoginSuccess(username,password);
                             db.SetIdUtente(getApplicationContext());
+                            db.SetGym(getApplicationContext());
+
+
+
                         }
                         else {
                             onLoginFailed();
@@ -95,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
-        db.close();
     }
 
 
@@ -106,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
+
                 this.finish();
             }
         }
@@ -123,7 +128,13 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", username);
         editor.putString("password", password);
+        String gym=db.getGym(username);
+        editor.putString("Gym",gym );
         editor.commit();
+        db.close();
+        Intent intent= new Intent(this,StarterActivity.class);
+        startActivity(intent);
+
         finish();
     }
 
@@ -132,6 +143,5 @@ public class LoginActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(true);
     }
-
 
 }

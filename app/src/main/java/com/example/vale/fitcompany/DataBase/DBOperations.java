@@ -71,9 +71,9 @@ public class DBOperations {
 
    //----------------------inizio operazioni db----------------------------------------------
 
-    public String getGym()
+    public String getGym(String username)
     {
-        Cursor c = mDb.rawQuery("SELECT Palestra FROM Utente WHERE Id=?;",  new String[]{ID_UTENTE});
+        Cursor c = mDb.rawQuery("SELECT Palestra FROM Utente WHERE Id=?;",  new String[]{username});
         c.moveToFirst();
         return c.getString(c.getColumnIndex("Palestra"));
 
