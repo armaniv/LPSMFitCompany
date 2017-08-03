@@ -57,4 +57,9 @@ public class StarterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewsActivity.class);
         startActivity(intent);
     }
+    public void StartCalendar(View v )
+    {
+        Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
+    }
 }

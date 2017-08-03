@@ -135,6 +135,7 @@
             android:background="?android:selectableItemBackground"
             android:maxHeight="90dp"
             android:scaleType="fitCenter"
+            android:onClick="StartCalendar"
             app:srcCompat="@mipmap/calendar" />
 
         <ImageButton

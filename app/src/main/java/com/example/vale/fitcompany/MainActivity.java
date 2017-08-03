@@ -26,10 +26,14 @@ public class MainActivity extends AppCompatActivity
         if (!checkCache()){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
+
         }
         else{
             Intent intent = new Intent(this, StarterActivity.class);
             startActivity(intent);
+            finish();
+
 
         }
 
