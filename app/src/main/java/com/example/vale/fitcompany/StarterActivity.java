@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.vale.fitcompany.DataBase.DBOperations;
+
 public class StarterActivity extends AppCompatActivity {
 
     TextView gymName;
@@ -14,6 +16,11 @@ public class StarterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DBOperations db = DBOperations.getInstance(getApplicationContext());
+        db.open();
+        db.SetIdUtente(getApplicationContext());
+        db.SetGym(getApplicationContext());
         setContentView(R.layout.activity_menu);
         String gym="";
         SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
