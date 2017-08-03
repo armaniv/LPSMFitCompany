@@ -16,26 +16,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".SignupActivity"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".SchedeActivity"
             android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".AllenamentoActivity"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".TrainersActivity" />
-        <activity android:name=".ContactActivity" />
+
+        <activity
+            android:name=".TrainersActivity" />
+
+        <activity
+            android:name=".ContactActivity" />
+
         <activity
             android:name=".NewsActivity"
             android:label="@string/title_activity_news"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".Oggetti.StarterActivity" />
-        <activity android:name=".StarterActivity"></activity>
+
+        <activity
+            android:name=".StarterActivity"></activity>
+
     </application>
 
 </manifest>

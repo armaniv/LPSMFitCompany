@@ -69,17 +69,23 @@ public class DBOperations {
     }
 
 
-   //----------------------inizio operazioni db----------------------------------------------
+   //----------------------inizio operazioni DB----------------------------------------------
 
+
+    //procedura che fissa la palestra all'interno dell'app.
     public String getGym(String username)
     {
+        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        SELECT Nome FROM Palestra
+        nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
+
         Cursor c = mDb.rawQuery("SELECT Palestra FROM Utente WHERE Id=?;",  new String[]{username});
         c.moveToFirst();
         return c.getString(c.getColumnIndex("Palestra"));
-
-
     }
 
+
+    //procedura che recupera tutte le schede personali dell'utente loggato
     public ArrayList<Scheda> RecuperaTutteSchedeUtenteConInfo()
     {
         //recupero Id di tutte le schede dell'utente loggato con le relativo relazioni e  le ordino per data
@@ -110,7 +116,7 @@ public class DBOperations {
         return risultato;
     }
 
-
+    //procedura che controlla se le informazioni inserite durante la fase di login corrispondono con quelle memorizzate nel DB
     public boolean ControllaLogin(String UtenteId, String Password)
     {
         boolean risultato=false;
@@ -139,6 +145,8 @@ public class DBOperations {
         return risultato;
     }
 
+
+    //procedura che recupera dal DB il giorno di allenamento (della scheda) che l'utente dovrà farà (viene aggiornato ad ogni ingresso)
     public int GiornoCorrente()
     {
         int ris=0;
@@ -150,6 +158,8 @@ public class DBOperations {
         return ris;
     }
 
+
+    //procedura che recupero un giorno di allenamento di una determinata scheda. Ritorna una List<Allenamento>
     public List<Allenamento> RecuperaGiornoAllenamento(int idscheda,int day)
     {
         //recupero il giorno di allenamento all'interno della scheda
@@ -175,9 +185,12 @@ public class DBOperations {
         return risultato;
     }
 
-
+    //procedure che recupera dal DB i trainers presenti nella palestra e li restituisce sotto forma di List<Trainer>
     public List<Trainer> GetTrainers()
     {
+        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore
+        nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor c = mDb.rawQuery("SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore WHERE IdPalestra=?",new String[]{GYM});
 
         List<Trainer>  risultato= new ArrayList<Trainer>();
@@ -196,8 +209,14 @@ public class DBOperations {
         }
         return risultato;
     }
+
+
+    //procedure che recupera dal DB le notizie relative alla palestra (le News) e le restituisce sotto forma di List<News>
     public List<News> GetNews()
     {
+        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        SELECT * FROM Notizia
+        nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor c = mDb.rawQuery("SELECT * FROM Notizia WHERE IdPalestra=?",new String[]{GYM});
 
         List<News>  risultato= new ArrayList<>();
@@ -215,6 +234,8 @@ public class DBOperations {
         return risultato;
     }
 
+    //procedura che salva eventuale modifiche apporta alle Editext nella schermata in cui è visibile  l'allenamento
+    //List<String> CampiEditText è la lista di editext visualizzate a schermata
     public boolean SalvaGiornoAllenamento(String schedaid, Integer dayallenamento,List<String> CampiEditText)
     {
         boolean risultato=true;
@@ -229,6 +250,7 @@ public class DBOperations {
 
         try
         {
+            //recupera i campi dei valori visualizzati a schermo
             for (int i=0;i<schedaVisualizzata.size();i++)
             {
                 idEsercizio=schedaVisualizzata.get(i).getIdEs();
@@ -238,6 +260,7 @@ public class DBOperations {
                 Note=CampiEditText.get(indiceListaEditText);
                 indiceListaEditText++;
 
+                //esecuzione UPDATE database
                 cv.clear();
                 cv.put("IdScheda",idscheda);
                 cv.put("IdEsercizio",idEsercizio);
@@ -255,6 +278,42 @@ public class DBOperations {
         }
 
         return risultato;
+    }
+
+
+    //restituisce lo stato di affolamento della palestra confrontando: il numero di accessi effettuati un'ora e mezza prima di questo
+    //momento con il numero di  soglia dentro il DB.
+    public String RitornaStatoPalestra()
+    {
+        String stato="";
+        int soglia1,soglia2;
+        String tmp;
+
+        Cursor c = mDb.rawQuery("SELECT * FROM Palestra WHERE Nome=?",new String[]{GYM});
+        c.moveToFirst();
+
+        tmp=c.getString(c.getColumnIndex("SogliaMedioAffollato"));
+        soglia1=Integer.parseInt(tmp);
+
+        tmp=c.getString(c.getColumnIndex("SogliaTantoAffollato"));
+        soglia2=Integer.parseInt(tmp);
+
+        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        SELECT Tempo FROM Accesso WHERE Tempo >=datetime('now', '-1.5 Hour')
+        nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
+        Cursor curs = mDb.rawQuery("SELECT Tempo FROM Accesso, Utente WHERE Id=IdUtente AND Tempo >=datetime('now', '-1.5 Hour') AND Palestra=?",new String[]{GYM});
+
+        curs.moveToFirst();
+        int numeroaccessi = curs.getCount();
+
+        if(numeroaccessi<=soglia1)
+            stato="Stao: Poco affollata";
+        else if (soglia1<numeroaccessi && numeroaccessi<=soglia2)
+            stato="Stao: Abbastanza affollata";
+        else
+            stato="Stao: Molto affollata";
+
+        return stato;
     }
 
 }
