@@ -21,6 +21,7 @@ public class StarterActivity extends AppCompatActivity {
         db.open();
         db.SetIdUtente(getApplicationContext());
         db.SetGym(getApplicationContext());
+        db.close();
         setContentView(R.layout.activity_menu);
         String gym="";
         SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
