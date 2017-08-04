@@ -6,12 +6,17 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.example.vale.fitcompany.Oggetti.News;
 import com.example.vale.fitcompany.Oggetti.Scheda;
 import com.example.vale.fitcompany.Oggetti.Trainer;
 import com.example.vale.fitcompany.Oggetti.Allenamento;
+import com.example.vale.fitcompany.Oggetti.Utente;
+
+import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -316,4 +321,61 @@ public class DBOperations {
         return stato;
     }
 
+
+    //metodo che resistuisce le informazioni provenenti dal db riguardo l'utente al momento loggato
+    public Utente RitornaUtenteAttuale()
+    {
+        Cursor c = mDb.rawQuery("SELECT * FROM Utente WHERE Id=?",new String[]{ID_UTENTE});
+
+        String Nome,Cognome,InizioAbb,FineAbb;
+        c.moveToFirst();
+
+        Nome = c.getString(c.getColumnIndex("Nome"));
+        Cognome = c.getString(c.getColumnIndex("Cognome"));
+        InizioAbb = c.getString(c.getColumnIndex("IAbb"));
+        FineAbb = c.getString(c.getColumnIndex("FAbb"));
+
+        Utente utente = new Utente(Nome,Cognome,InizioAbb,FineAbb);
+
+        return  utente;
+    }
+
+
+    //metodo che resistuisce l'ultimo peso inserito dell'utente loggato
+    public String GetUltimoPesoPersona()
+    {
+        String peso="";
+
+        Cursor c= mDb.rawQuery("SELECT * FROM Peso WHERE IdUtente=? ORDER BY Tempo DESC LIMIT 1;",new String[]{ID_UTENTE});
+        c.moveToFirst();
+        peso = c.getString(c.getColumnIndex("Kg"));
+
+        return  peso;
+    }
+
+
+    //metodo che serve ad inserire nel DB un nuovo peso dell'utente già loggato
+    public boolean InserisciNuovoPeso(String Peso)
+    {
+        boolean ris=true;
+
+        try
+        {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            ContentValues values = new ContentValues();
+            values.put("Tempo",  dateFormat.format(date));
+            values.put("Kg", Peso);
+            values.put("IdUtente", ID_UTENTE);
+
+            mDb.insert("Peso", null, values);
+        }
+        catch (Exception e)
+        {
+            ris=false;
+            Log.e("Errore", "InserisciNuovoPeso: "+ e.toString() );
+        }
+
+        return  ris;
+    }
 }

@@ -14,4 +14,11 @@
     <string name="Btn_activity_allena">Salva</string>
     <string name="title_activity_news">News</string>
 
+    <string name="Nome_activity_utente">Nome:</string>
+    <string name="Cognome_activity_utente">Cognome:</string>
+    <string name="InizioAbb_activity_utente">Inizio abb:</string>
+    <string name="FineAbb_activity_utente">Fine abb:</string>
+    <string name="Peso_activity_utente">Peso:</string>
+    <string name="Btn_activity_utente">Salva</string>
+
 </resources>
