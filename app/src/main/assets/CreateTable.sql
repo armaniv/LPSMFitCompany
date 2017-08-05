@@ -9,3 +9,8 @@ CREATE TABLE Utente_Scheda(IdUtente INTEGER,IdScheda INTEGER,PRIMARY KEY(IdUtent
 CREATE TABLE Scheda_Esercizio(IdScheda INTEGER,IdEsercizio INTEGER,Set_Rip VARCHAR(25),Peso DECIMAL(7,3),Note VARCHAR(255),NGiorno TINYINT,PRIMARY KEY(IdScheda,IdEsercizio),FOREIGN KEY (IdScheda) REFERENCES Scheda(Id),FOREIGN KEY (IdEsercizio) REFERENCES Esercizio(Id));
 CREATE TABLE Notizia (IdPalestra VARCHAR (50) NOT NULL REFERENCES Palestra (Nome), Descrizione VARCHAR (500), Data DATE, PRIMARY KEY (IdPalestra, Data));
 CREATE TABLE Palestra (Nome VARCHAR (50),Indirizzo VARCHAR (50),SogliaMedioAffollato INTEGER,SogliaTantoAffollato INTEGER,PRIMARY KEY(Nome));
+CREATE TABLE Orario (IdPalestra VARCHAR (50) NOT NULL REFERENCES Palestra (Nome), Giorno VARCHAR (50), Orario VARCHAR(50), PRIMARY KEY (IdPalestra, Giorno));
+CREATE TABLE Chiusura (IdPalestra VARCHAR (50) NOT NULL REFERENCES Palestra (Nome), dataInizio DATE,dataFine DATE, PRIMARY KEY (IdPalestra, dataFine));
+
+
+

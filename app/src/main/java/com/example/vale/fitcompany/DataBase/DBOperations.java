@@ -7,10 +7,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.example.vale.fitcompany.Oggetti.Chiusura;
 import com.example.vale.fitcompany.Oggetti.News;
+import com.example.vale.fitcompany.Oggetti.Orario;
 import com.example.vale.fitcompany.Oggetti.Scheda;
 import com.example.vale.fitcompany.Oggetti.Trainer;
 import com.example.vale.fitcompany.Oggetti.Allenamento;
@@ -18,6 +22,7 @@ import com.example.vale.fitcompany.Oggetti.Utente;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -75,7 +80,6 @@ public class DBOperations {
 
 
    //----------------------inizio operazioni DB----------------------------------------------
-
 
     //procedura che fissa la palestra all'interno dell'app.
     public String getGym(String username)
@@ -233,6 +237,53 @@ public class DBOperations {
                 tmp3 = c.getString(c.getColumnIndex("Descrizione"));
                 tmp4 = c.getString(c.getColumnIndex("Data"));
                 risultato.add(new News(tmp2,tmp3,tmp4));
+
+            } while (c.moveToNext());
+        }
+        return risultato;
+    }
+    //procedure che recupera dal DB orario della palestra e lo restituisce sotto forma di List<Orario>
+
+    public List<Orario> GetOrario()
+    {
+        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        SELECT * FROM Orario
+        nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
+        Cursor c = mDb.rawQuery("SELECT * FROM Orario WHERE IdPalestra=?",new String[]{GYM});
+
+        List<Orario>  risultato= new ArrayList<>();
+        String tmp2,tmp3;
+
+        if (c.moveToFirst()) {
+            do {
+                tmp2 = c.getString(c.getColumnIndex("Giorno"));
+                tmp3 = c.getString(c.getColumnIndex("Orario"));
+                risultato.add(new Orario(tmp2,tmp3));
+
+            } while (c.moveToNext());
+        }
+        return risultato;
+    }
+    //procedure che recupera dal DB Chiusure fouri dal ordinario della palestra e lo restituisce sotto forma di List<Chiusura>
+
+    public List<Chiusura> GetChiusura() throws ParseException {
+        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        SELECT * FROM Chiusura
+        nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
+        Cursor c = mDb.rawQuery("SELECT * FROM Chiusura WHERE IdPalestra=?",new String[]{GYM});
+
+        List<Chiusura>  risultato= new ArrayList<>();
+        String tmp2,tmp3;
+
+        if (c.moveToFirst()) {
+            do {
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                tmp2 = c.getString(c.getColumnIndex("dataInizio"));
+                tmp3 = c.getString(c.getColumnIndex("dataFine"));
+                Date date1 = format.parse(tmp2);
+                Date date2 = format.parse(tmp3);
+
+                risultato.add(new Chiusura(date1,date2));
 
             } while (c.moveToNext());
         }

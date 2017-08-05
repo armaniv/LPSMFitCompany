@@ -1,3 +1,6 @@
+INSERT INTO Orario VALUES ('Golds Gym', 'Da Lunedi a Venerdi',"6-24");
+INSERT INTO Orario VALUES ('Golds Gym', 'Sabato e Domenica',"6-20");
+INSERT INTO Chiusura VALUES('Golds Gym','2017-08-10','2017-08-20')
 INSERT INTO Palestra VALUES ('Golds Gym', 'USA, Venice',2,5);
 INSERT INTO Palestra  VALUES ('Center Sport', 'Via Grossi 1',10,16);
 INSERT INTO Notizia (IdPalestra, Descrizione, Data) VALUES ('Golds Gym', 'Dont wait check out Arnolds new workout plan, Blueprint for mass', '2017-02-22 15:00:05');
