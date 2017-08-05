@@ -36,6 +36,8 @@
             android:theme="@style/AppTheme.Dark" />
         <activity android:name=".StarterActivity" />
         <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".UtenteAcitivity"
+            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

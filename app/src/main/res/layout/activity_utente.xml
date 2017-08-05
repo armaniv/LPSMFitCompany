@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgProfiloUtente"
+            android:layout_width="183dp"
+            android:layout_height="198dp"
+            app:srcCompat="@mipmap/profilo"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintLeft_creator="1" />
+
+        <TextView
+            android:id="@+id/txtUtenteNome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="da settare dal DB"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            app:layout_constraintLeft_toRightOf="@+id/txtTitoloNome"
+            android:layout_marginLeft="60dp"
+            android:layout_marginStart="60dp" />
+
+        <TextView
+            android:id="@+id/txtUtenteCognome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="85dp"
+            android:text="da settare dal DB"
+            android:textSize="20dp"
+            app:layout_constraintLeft_toRightOf="@+id/txtTitoloCognome"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginStart="27dp" />
+
+        <TextView
+            android:id="@+id/txtUtenteInizioAbb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="135dp"
+            android:text="da settare dal DB"
+            android:textSize="20dp"
+            app:layout_constraintLeft_toRightOf="@+id/txtTitoloIniAbb"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginStart="26dp" />
+
+        <TextView
+            android:id="@+id/txtUtenteFineAbb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="185dp"
+            android:text="da settare dal DB"
+            android:textSize="20dp"
+            app:layout_constraintLeft_toRightOf="@+id/txtTitoloFineAbb"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginStart="37dp" />
+
+        <TextView
+            android:id="@+id/txtTitoloNome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="@string/Nome_activity_utente"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginLeft="45dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="45dp" />
+
+        <TextView
+            android:id="@+id/txtTitoloCognome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="85dp"
+            android:text="@string/Cognome_activity_utente"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginLeft="45dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="45dp" />
+
+        <TextView
+            android:id="@+id/txtTitoloIniAbb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="135dp"
+            android:text="@string/InizioAbb_activity_utente"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginLeft="45dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="45dp" />
+
+        <TextView
+            android:id="@+id/txtTitoloFineAbb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="185dp"
+            android:text="@string/FineAbb_activity_utente"
+            android:textSize="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginStart="45dp" />
+
+        <TextView
+            android:id="@+id/txtTitoloPeso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="233dp"
+            android:text="@string/Peso_activity_utente"
+            android:textSize="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginStart="45dp" />
+
+        <EditText
+            android:id="@+id/edtPeso"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="225dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="20dp"
+            app:layout_constraintLeft_toRightOf="@+id/txtTitoloPeso"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
+            android:layout_marginStart="68dp" />
+
+        <Button
+            android:id="@+id/btnSalvaPeso"
+            android:layout_width="71dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/Btn_activity_utente"
+            android:onClick="SalvaPeso"
+            app:layout_constraintLeft_toRightOf="@+id/txtTitoloPeso"
+            app:layout_constraintTop_toBottomOf="@+id/txtUtenteFineAbb" />
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
