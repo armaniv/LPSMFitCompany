@@ -7,7 +7,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ListView;
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
 import com.example.vale.fitcompany.Oggetti.Chiusura;
@@ -55,12 +57,32 @@ public class CalendarActivity extends AppCompatActivity {
         calendar= ( MaterialCalendarView) findViewById(R.id.calendario);
         calendar.setDateTextAppearance(R.style.AppTheme);
         calendar.invalidateDecorators();
+        calendar.setDynamicHeightEnabled(true);
       //  calendar.setDateTextAppearance(R.style.AppTheme);
         Calendar c = Calendar.getInstance();
         dates=new HashSet<CalendarDay>();
         setHashCalendar();
         dates.add(new CalendarDay().from(c));
         calendar.addDecorator(new CircleDecorator(this,R.drawable.decor,dates));
+
+        final ListView mylist = (ListView) findViewById(R.id.ListViewCalendario);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,formatListItems() );
+        mylist.setAdapter(adapter);
+
+
+
+    }
+    private List<String> formatListItems()
+    {
+        List<String> tmp=new ArrayList<>();
+        tmp.add("Orario Normale :");
+        for(int i=0; i< orarionormale.size();i++)
+        {
+            tmp.add(orarionormale.get(i).getGiorni() +" "+ orarionormale.get(i).getOrario());
+
+        }
+        tmp.add("Date cerchiate -> Palestra chiusa");
+        return tmp;
 
     }
     private void setHashCalendar()
