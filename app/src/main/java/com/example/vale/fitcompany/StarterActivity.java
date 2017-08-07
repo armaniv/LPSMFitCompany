@@ -69,4 +69,10 @@ public class StarterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UtenteAcitivity.class);
         startActivity(intent);
     }
+
+    public void StartGrafici(View v )
+    {
+        Intent intent = new Intent(this, GraficiActivity.class);
+        startActivity(intent);
+    }
 }

@@ -34,7 +34,7 @@ public class DBOperations {
     private static final String DB_NAME = "GymDB.db";
     private static final int DB_VERSION = 1;
     private static String ID_UTENTE="";//conterrà l'ID dell utente una volta effettuato l'accesso
-    private static String GYM;
+    private static String GYM;//conterrà il nome della palestra
 
 
     private static DBOperations instance = null;
@@ -61,6 +61,8 @@ public class DBOperations {
         String username = prefs.getString("username","");
         ID_UTENTE=username;
     }
+
+    //setto la variabile globale GYM
     public void SetGym(Context ctx)
     {
         SharedPreferences prefs = ctx.getSharedPreferences("UserData", MODE_PRIVATE);
@@ -242,11 +244,12 @@ public class DBOperations {
         }
         return risultato;
     }
-    //procedure che recupera dal DB orario della palestra e lo restituisce sotto forma di List<Orario>
 
+
+    //procedure che recupera dal DB orario della palestra e lo restituisce sotto forma di List<Orario>
     public List<Orario> GetOrario()
     {
-        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        /*In caso il db fosse esclusivo per una unica palestra la query da eseguire sarebbe semplicemnte:
         SELECT * FROM Orario
         nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor c = mDb.rawQuery("SELECT * FROM Orario WHERE IdPalestra=?",new String[]{GYM});

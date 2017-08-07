@@ -30,6 +30,8 @@ public class NewsActivity extends AppCompatActivity {
     List<String> tmpBody;
     List<String> tmpDate;
     LinkedList<News> format;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +46,8 @@ public class NewsActivity extends AppCompatActivity {
         final MyArrayAdapter adapter = new MyArrayAdapter(this,notizie);
         mylist.setAdapter(adapter);
 
-
-
-
     }
+
     private void formatting()
     {
         tmpTitle=new ArrayList<String>();
@@ -90,7 +90,6 @@ public class NewsActivity extends AppCompatActivity {
             return convertView;
         }
     }
-
 
 }
 

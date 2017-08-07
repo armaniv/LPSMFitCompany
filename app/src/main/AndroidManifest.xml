@@ -35,9 +35,13 @@
             android:label="@string/title_activity_news"
             android:theme="@style/AppTheme.Dark" />
         <activity android:name=".StarterActivity" />
-        <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".CalendarActivity" />
         <activity android:name=".UtenteAcitivity"
             android:theme="@style/AppTheme.Dark" />
+
+        <activity android:name=".GraficiActivity"
+            android:theme="@style/AppTheme.Dark" />
+
     </application>
 
 </manifest>
