@@ -6,9 +6,7 @@
     <string name="next">NEXT</string>
     <string name="skip">CONTACT</string>
 
-
     <string name="Titolo_activity_schede">Elenco schede</string>
-
 
     <string name="SelezionaDay_activity_allena">Seleziona giorno</string>
     <string name="Btn_activity_allena">Salva</string>
@@ -20,5 +18,7 @@
     <string name="FineAbb_activity_utente">Fine abb:</string>
     <string name="Peso_activity_utente">Peso:</string>
     <string name="Btn_activity_utente">Salva</string>
+
+    <string name="Titolo_activity_grafici">Grafici andamento</string>
 
 </resources>

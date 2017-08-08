@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import com.example.vale.fitcompany.Oggetti.Chiusura;
 import com.example.vale.fitcompany.Oggetti.News;
 import com.example.vale.fitcompany.Oggetti.Orario;
+import com.example.vale.fitcompany.Oggetti.Peso;
 import com.example.vale.fitcompany.Oggetti.Scheda;
 import com.example.vale.fitcompany.Oggetti.Trainer;
 import com.example.vale.fitcompany.Oggetti.Allenamento;
@@ -267,8 +268,8 @@ public class DBOperations {
         }
         return risultato;
     }
-    //procedure che recupera dal DB Chiusure fouri dal ordinario della palestra e lo restituisce sotto forma di List<Chiusura>
 
+    //procedure che recupera dal DB Chiusure fouri dal ordinario della palestra e lo restituisce sotto forma di List<Chiusura>
     public List<Chiusura> GetChiusura() throws ParseException {
         /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
         SELECT * FROM Chiusura
@@ -432,4 +433,31 @@ public class DBOperations {
 
         return  ris;
     }
+
+
+    //procedure che recupera dal DB i valori del peso inseriti dall'utente  e li restituisce sotto forma di List<Peso>
+    public List<Peso> RecuperaValoriPeso()
+    {
+        //recupero il peso corporeo inserito dall utente
+        Cursor c = mDb.rawQuery("SELECT * FROM Peso WHERE IdUtente=?",  new String[]{ID_UTENTE});
+
+        List<Peso>  risultato= new ArrayList<Peso>();
+        String Tempo,Kg;
+
+        Peso valorePeso ;
+
+        if (c.moveToFirst())
+        {
+            do
+            {
+                Tempo = c.getString(c.getColumnIndex("Tempo"));
+                Kg = c.getString(c.getColumnIndex("Kg"));
+                valorePeso= new Peso(Tempo,Kg);
+                risultato.add(valorePeso);
+
+            } while (c.moveToNext());
+        }
+        return risultato;
+    }
+
 }
