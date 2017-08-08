@@ -151,7 +151,7 @@
             android:maxHeight="90dp"
             android:scaleType="fitCenter"
             android:onClick="StartGrafici"
-            app:srcCompat="@mipmap/pair" />
+            app:srcCompat="@mipmap/chart" />
 
         <ImageButton
             android:id="@+id/bPairWork"
@@ -164,7 +164,7 @@
             android:background="?android:selectableItemBackground"
             android:maxHeight="90dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:srcCompat="@mipmap/pair_workout" />
 
     </RelativeLayout>
 

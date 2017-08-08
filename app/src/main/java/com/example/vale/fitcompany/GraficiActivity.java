@@ -2,6 +2,8 @@ package com.example.vale.fitcompany;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -33,70 +35,121 @@ public class GraficiActivity  extends AppCompatActivity
         Spinner spinner = (Spinner) findViewById(R.id.spinGrafici);
         ArrayAdapter<String> adapter;
         List<String> list = new ArrayList<String>();
-        list.add("Peso corporeo");
-        list.add("Forza muscolare");
+        list.add("Peso corporeo");//quindi il peso ha indice 0
+        list.add("Forza muscolare");//quindi la forza ha indice 1
         adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        spinner.setSelection(0);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+            {
+                int indice= ((int) (long) id);
+                SettaGrafico(indice);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView)
+            {
+                return;
+            }
+
+        });
+
+    }
 
 
+    private void  SettaGrafico(Integer indice)
+    {
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
         Description description = new Description();
         description.setText("");
         chart.setDescription(description);
 
-
         List<Entry> valoriGrafico = new ArrayList<Entry>();
-
-        DBOperations db = DBOperations.getInstance(getApplicationContext());
-        db.open();
-        List<Peso> ListaPesi = db.RecuperaValoriPeso();
-        db.close();
-
         Entry entry;
-        float n,pesoinserito;
 
-        //lista che conterrà unicamente le date, necessaria per poter visualizare corretamente il grafico
-        List<String> date = new ArrayList<String>();
-
-        for (int i=0;i<ListaPesi.size();i++)
+        if (indice==0)//se dallo spinner ho selezionato peso corporeo
         {
-            n = (float)i;
-            pesoinserito= Float.valueOf(ListaPesi.get(i).getPesoKg());
-            date.add(ListaPesi.get(i).getData());
-            entry= new Entry(n,pesoinserito);
-            valoriGrafico.add(entry);
+            DBOperations db = DBOperations.getInstance(getApplicationContext());
+            db.open();
+            List<Peso> ListaPesi = db.RecuperaValoriPeso();
+            db.close();
+
+            float n,pesoinserito;
+
+            //lista che conterrà unicamente le date, necessaria per poter visualizare corretamente il grafico
+            List<String> date = new ArrayList<String>();
+
+            for (int i=0;i<ListaPesi.size();i++)
+            {
+                n = (float)i;
+                pesoinserito= Float.valueOf(ListaPesi.get(i).getPesoKg());
+                date.add(ListaPesi.get(i).getData());
+                entry= new Entry(n,pesoinserito);
+                valoriGrafico.add(entry);
+            }
+
+
+            LineDataSet setComp1 = new LineDataSet(valoriGrafico, "Peso corporeo");
+            setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+            final String[] valoriDate = new String[date.size()];
+            date.toArray(valoriDate);
+
+            IAxisValueFormatter formatter = new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis)
+                {
+                    return valoriDate[(int) value];
+                }
+            };
+
+
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+            xAxis.setValueFormatter(formatter);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+            YAxis rightYAxis = chart.getAxisRight();
+            rightYAxis.setEnabled(false);
+
+
+            LineData data = new LineData(setComp1);
+            chart.setData(data);
+            chart.invalidate();
         }
 
 
-        LineDataSet setComp1 = new LineDataSet(valoriGrafico, "Peso corporeo");
-        setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
+        else if(indice==1)//se dallo spinner ho selezionato forza
+        {
 
-        final String[] valoriDate = new String[date.size()];
-        date.toArray(valoriDate);
-
-        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis)
+            for (int i=0;i<3;i++)
             {
-                return valoriDate[(int) value];
+                entry= new Entry(i,(i+15));
+                valoriGrafico.add(entry);
             }
-        };
 
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-        xAxis.setValueFormatter(formatter);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        YAxis rightYAxis = chart.getAxisRight();
-        rightYAxis.setEnabled(false);
+            LineDataSet setComp1 = new LineDataSet(valoriGrafico, "Forza muscolare");
+            setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
 
 
-        LineData data = new LineData(setComp1);
-        chart.setData(data);
-        chart.invalidate();
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
+            YAxis rightYAxis = chart.getAxisRight();
+            rightYAxis.setEnabled(false);
+
+            LineData data = new LineData(setComp1);
+            chart.setData(data);
+            chart.invalidate();
+
+        }
     }
+
 }
