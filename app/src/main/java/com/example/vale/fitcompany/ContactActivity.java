@@ -28,8 +28,7 @@ public class ContactActivity extends AppCompatActivity {
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog progressDialog = new ProgressDialog(ContactActivity.this,
-                        R.style.AppTheme_Dark_Dialog);
+                final ProgressDialog progressDialog = new ProgressDialog(ContactActivity.this,R.style.AppTheme_Dark_Dialog);
                 progressDialog.setIndeterminate(true);
                 progressDialog.setMessage("Sending...");
                 progressDialog.show();

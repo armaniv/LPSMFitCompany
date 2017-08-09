@@ -2,7 +2,6 @@ package com.example.vale.fitcompany;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,14 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GraficiActivity  extends AppCompatActivity
+public class GraficiPesoActivity extends AppCompatActivity
 {
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grafici);
+        setContentView(R.layout.activity_grafici_peso);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinGrafici);
         ArrayAdapter<String> adapter;

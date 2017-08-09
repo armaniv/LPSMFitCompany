@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -72,7 +71,13 @@ public class StarterActivity extends AppCompatActivity {
 
     public void StartGrafici(View v )
     {
-        Intent intent = new Intent(this, GraficiActivity.class);
+        Intent intent = new Intent(this, GraficiPesoActivity.class);
+        startActivity(intent);
+    }
+
+    public void StartGraficoAffolamento(View v)
+    {
+        Intent intent = new Intent(this, GraficoAffollamentoActivity.class);
         startActivity(intent);
     }
 }

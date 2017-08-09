@@ -61,7 +61,11 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".GraficiActivity"
+            android:name=".GraficiPesoActivity"
+            android:theme="@style/AppTheme.Dark" />
+
+        <activity
+            android:name=".GraficoAffollamentoActivity"
             android:theme="@style/AppTheme.Dark" />
 
     </application>
