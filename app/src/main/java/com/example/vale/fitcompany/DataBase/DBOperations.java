@@ -436,10 +436,27 @@ public class DBOperations {
 
 
     //procedure che recupera dal DB i valori del peso inseriti dall'utente  e li restituisce sotto forma di List<Peso>
-    public List<Peso> RecuperaValoriPeso()
+    public List<Peso> RecuperaValoriPeso(Integer periodo)
     {
+        Cursor c;
         //recupero il peso corporeo inserito dall utente
-        Cursor c = mDb.rawQuery("SELECT * FROM Peso WHERE IdUtente=?",  new String[]{ID_UTENTE});
+        //c = mDb.rawQuery("SELECT * FROM Peso WHERE IdUtente=?",  new String[]{ID_UTENTE});
+
+
+        if (periodo==0) //ovvero ho selezionato "Ultimo mese"
+        {
+            c = mDb.rawQuery("SELECT * FROM Peso WHERE Tempo>= datetime('now','-1 month') AND IdUtente=?",  new String[]{ID_UTENTE});
+
+        }else if(periodo==1) //ovvero ho selezionato "Ultimo trimestre"
+        {
+            c = mDb.rawQuery("SELECT * FROM Peso WHERE Tempo>= datetime('now','-3 month') AND IdUtente=?",  new String[]{ID_UTENTE});
+
+        }else //ovvero ho selezionato "Ultimo semestre"
+        {
+            c = mDb.rawQuery("SELECT * FROM Peso WHERE Tempo>= datetime('now','-6 month') AND IdUtente=?",  new String[]{ID_UTENTE});
+        }
+
+
 
         List<Peso>  risultato= new ArrayList<Peso>();
         String Tempo,Kg;

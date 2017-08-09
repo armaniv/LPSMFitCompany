@@ -19,6 +19,6 @@
     <string name="Peso_activity_utente">Peso:</string>
     <string name="Btn_activity_utente">Salva</string>
 
-    <string name="Titolo_activity_grafici">Grafici andamento</string>
+    <string name="Titolo_activity_grafici">Grafici peso corporeo</string>
 
 </resources>

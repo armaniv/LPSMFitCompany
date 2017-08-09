@@ -2,6 +2,7 @@ package com.example.vale.fitcompany;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,8 +36,9 @@ public class GraficiActivity  extends AppCompatActivity
         Spinner spinner = (Spinner) findViewById(R.id.spinGrafici);
         ArrayAdapter<String> adapter;
         List<String> list = new ArrayList<String>();
-        list.add("Peso corporeo");//quindi il peso ha indice 0
-        list.add("Forza muscolare");//quindi la forza ha indice 1
+        list.add("Ultimo mese");//quindi indice 0
+        list.add("Ultimo trimestre");//quindi indice 1
+        list.add("Ultimo semestre");//quindi indice 2
         adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -45,7 +47,7 @@ public class GraficiActivity  extends AppCompatActivity
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int pos, long id)
             {
                 int indice= ((int) (long) id);
                 SettaGrafico(indice);
@@ -62,7 +64,7 @@ public class GraficiActivity  extends AppCompatActivity
     }
 
 
-    private void  SettaGrafico(Integer indice)
+    private void  SettaGrafico(Integer periodo)
     {
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
@@ -73,83 +75,66 @@ public class GraficiActivity  extends AppCompatActivity
         List<Entry> valoriGrafico = new ArrayList<Entry>();
         Entry entry;
 
-        if (indice==0)//se dallo spinner ho selezionato peso corporeo
-        {
-            DBOperations db = DBOperations.getInstance(getApplicationContext());
-            db.open();
-            List<Peso> ListaPesi = db.RecuperaValoriPeso();
-            db.close();
+        List<Peso> ListaPesi = new ArrayList<Peso>();
 
-            float n,pesoinserito;
+        DBOperations db = DBOperations.getInstance(getApplicationContext());
+        db.open();
+        ListaPesi = db.RecuperaValoriPeso(periodo);
+        db.close();
 
-            //lista che conterrà unicamente le date, necessaria per poter visualizare corretamente il grafico
-            List<String> date = new ArrayList<String>();
+        //se non ho dati a sufficienza per fare il grafico
+        if (ListaPesi.size() == 0 || ListaPesi.size() == 1)
+            return;         //esco ,altrimenti errore
 
-            for (int i=0;i<ListaPesi.size();i++)
-            {
-                n = (float)i;
-                pesoinserito= Float.valueOf(ListaPesi.get(i).getPesoKg());
-                date.add(ListaPesi.get(i).getData());
-                entry= new Entry(n,pesoinserito);
-                valoriGrafico.add(entry);
-            }
+        float n, pesoinserito;
+
+        //lista che conterrà unicamente le date, necessaria per poter visualizare corretamente il grafico
+        List<String> date = new ArrayList<String>();
+        date.clear();
+
+        for (int i = 0; i < ListaPesi.size(); i++) {
+            n = (float) i;
+            pesoinserito = Float.valueOf(ListaPesi.get(i).getPesoKg());
+            date.add(ListaPesi.get(i).getData());
+            entry = new Entry(n, pesoinserito);
+            valoriGrafico.add(entry);
+        }
 
 
-            LineDataSet setComp1 = new LineDataSet(valoriGrafico, "Peso corporeo");
-            setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
+        LineDataSet setComp1 = new LineDataSet(valoriGrafico, "Peso corporeo (kg)");
+        setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
 
-            final String[] valoriDate = new String[date.size()];
-            date.toArray(valoriDate);
+        //conterrà i valori delle date di inserimento pesi
+        final String[] valoriDate = new String[date.size()];
+        date.toArray(valoriDate);
 
-            IAxisValueFormatter formatter = new IAxisValueFormatter() {
-                @Override
-                public String getFormattedValue(float value, AxisBase axis)
-                {
+        //setto sull'asse dell x le date di inserimento del peso
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if (valoriDate.length > (int) value) {
                     return valoriDate[(int) value];
-                }
-            };
-
-
-            XAxis xAxis = chart.getXAxis();
-            xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-            xAxis.setValueFormatter(formatter);
-            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-            YAxis rightYAxis = chart.getAxisRight();
-            rightYAxis.setEnabled(false);
-
-
-            LineData data = new LineData(setComp1);
-            chart.setData(data);
-            chart.invalidate();
-        }
-
-
-        else if(indice==1)//se dallo spinner ho selezionato forza
-        {
-
-            for (int i=0;i<3;i++)
-            {
-                entry= new Entry(i,(i+15));
-                valoriGrafico.add(entry);
+                } else
+                    return null;
             }
+        };
 
-            LineDataSet setComp1 = new LineDataSet(valoriGrafico, "Forza muscolare");
-            setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
+        //parametri grafico
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(formatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
+        YAxis rightYAxis = chart.getAxisRight();
+        rightYAxis.setEnabled(false);
 
-            XAxis xAxis = chart.getXAxis();
-            xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        LineData lineaDati = new LineData(setComp1);
 
-            YAxis rightYAxis = chart.getAxisRight();
-            rightYAxis.setEnabled(false);
+        lineaDati.notifyDataChanged();
+        chart.setData(lineaDati);
+        chart.notifyDataSetChanged();
+        chart.invalidate();
 
-            LineData data = new LineData(setComp1);
-            chart.setData(data);
-            chart.invalidate();
-
-        }
     }
 
 }
