@@ -47,10 +47,19 @@ public class GraficoAffollamentoActivity extends AppCompatActivity {
 
         List<PieEntry> entries = new ArrayList<>();
 
-        entries.add(new PieEntry(valoriGrafico[0], "Petto"));
-        entries.add(new PieEntry(valoriGrafico[1], "Schiena"));
-        entries.add(new PieEntry(valoriGrafico[2], "Gambe"));
+        if (valoriGrafico[0]!=0)
+            entries.add(new PieEntry(valoriGrafico[0], "Petto"));
+
+        if (valoriGrafico[1]!=0)
+            entries.add(new PieEntry(valoriGrafico[1], "Schiena"));
+
+        if (valoriGrafico[2]!=0)
+            entries.add(new PieEntry(valoriGrafico[2], "Gambe"));
+
+        if (valoriGrafico[3]!=0)
         entries.add(new PieEntry(valoriGrafico[3], "Braccia"));
+
+        if (valoriGrafico[4]!=0)
         entries.add(new PieEntry(valoriGrafico[4], "Spalle"));
 
         PieDataSet set = new PieDataSet(entries, "");
