@@ -23,4 +23,7 @@
 
     <string name="Titolo_activity_grafico_afforlamento">Distribuzione allenamenti adesso:</string>
 
+
+    <string name="Txt_persone_GrAff">Persone in palestra: </string>
+
 </resources>
