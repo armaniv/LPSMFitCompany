@@ -28,7 +28,6 @@ public class GraficoAffollamentoActivity extends AppCompatActivity {
         PieChart pieChart = (PieChart) findViewById(R.id.idPieChart);
         TextView npers = (TextView) findViewById(R.id.txtNPersoneGrafici);
 
-        try{
         DBOperations db = DBOperations.getInstance(getApplicationContext());
         db.open();
         int npersone = db.NumeroUtentiAttuali();
@@ -37,16 +36,18 @@ public class GraficoAffollamentoActivity extends AppCompatActivity {
 
         npers.setText("Persone in palestra: " + npersone);
 
-
+        //set colore cerchio centrale grafico
         pieChart.setHoleColor(Color.rgb(228, 63, 63));//rosso
         pieChart.setTransparentCircleAlpha(0);
 
+        //imposto descrizione nulla
         Description description = new Description();
         description.setText("");
         pieChart.setDescription(description);
 
         List<PieEntry> entries = new ArrayList<>();
 
+        //setto i valori del grafico con i valori provenienti dal DB
         if (valoriGrafico[0]!=0)
             entries.add(new PieEntry(valoriGrafico[0], "Petto"));
 
@@ -66,6 +67,7 @@ public class GraficoAffollamentoActivity extends AppCompatActivity {
         PieData data = new PieData(set);
 
 
+        //alcuni parametri per un visualizzazione carina
         set.setSliceSpace(7);
         set.setValueTextSize(12);
 
@@ -81,10 +83,6 @@ public class GraficoAffollamentoActivity extends AppCompatActivity {
 
         pieChart.setData(data);
         pieChart.invalidate(); // refresh
-        }catch (Exception e)
-        {
-            Log.e("Errore", "aaa" + e.toString());
-        }
 
     }
 }
