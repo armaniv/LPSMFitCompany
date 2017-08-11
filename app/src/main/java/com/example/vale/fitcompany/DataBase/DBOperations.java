@@ -452,7 +452,7 @@ public class DBOperations {
     }
 
 
-    //ritorna sotto forma di vettore di percentuali, le percentuali (in ordine ) di: Petto,Schiena,Gambe,Braccia,Spalle
+    //metodo che ritorna sotto forma di vettore di percentuali, le percentuali (in ordine ) di: Petto,Schiena,Gambe,Braccia,Spalle
     //di gruppi muscolari che si stannno allendando in questo momento in palestra
     public  Float[] RitornaGruppiMuscolariAllenatiAdesso()
     {
@@ -520,5 +520,18 @@ public class DBOperations {
         valori[4]=Spalle;
 
         return valori;
+    }
+
+
+    //metodo che inserisce nel DB la domanda che un utente fa ad un persona trainer
+    public void InserisciDomandaDataBase(String domanda, Integer IdIstruttore)
+    {
+        //idDomanda PRIMARY KEY è AUTO_INCREMENT
+        ContentValues values = new ContentValues();
+        values.put("IdUtente", ID_UTENTE);
+        values.put("IdIstruttore", IdIstruttore);
+        values.put("Domanda", domanda);
+
+        mDb.insert("Domande", null, values);
     }
 }
