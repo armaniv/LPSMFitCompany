@@ -42,8 +42,7 @@ public class ContactActivity extends AppCompatActivity {
 
                 DBOperations db = DBOperations.getInstance(getApplicationContext());
                 db.open();
-                int aa= db.InserisciDomandaDataBase(domanda, idTrainer);
-                Log.d("Vale", "n: "+aa);
+                db.InserisciDomandaDataBase(domanda, idTrainer);
                 db.close();
 
                 final ProgressDialog progressDialog = new ProgressDialog(ContactActivity.this,R.style.AppTheme_Dark_Dialog);

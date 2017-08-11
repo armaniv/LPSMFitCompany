@@ -80,4 +80,10 @@ public class StarterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GraficoAffollamentoActivity.class);
         startActivity(intent);
     }
+
+    public void StartPairWorkout(View v)
+    {
+        Intent intent = new Intent(this, PairWorkoutActivity.class);
+        startActivity(intent);
+    }
 }
