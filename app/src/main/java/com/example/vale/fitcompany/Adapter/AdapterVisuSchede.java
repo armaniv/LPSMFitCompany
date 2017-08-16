@@ -19,7 +19,7 @@ import java.util.List;
 public class AdapterVisuSchede extends BaseAdapter
 {
     private Context context;
-    private List<Scheda> ListaValori = new ArrayList<Scheda>();
+    private List<Scheda> ListaValori = new ArrayList<Scheda>();//lista in input
     private  List<String> ListaStringheValori = new ArrayList<String>();
 
     String str;
@@ -29,6 +29,8 @@ public class AdapterVisuSchede extends BaseAdapter
         this.context = context;
         this.ListaValori = ListaValori;
 
+        //popolo la lista che conterrà singolarmente ogni valore delle schede, necessaria per la visualizzazioe
+        //creo linea di intestazione
         ListaStringheValori.add("Id scheda");
         ListaStringheValori.add("Data inizio");
         ListaStringheValori.add("Obbiettivo");
@@ -50,10 +52,8 @@ public class AdapterVisuSchede extends BaseAdapter
     }
 
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        int indice=0;
-
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View gridView;

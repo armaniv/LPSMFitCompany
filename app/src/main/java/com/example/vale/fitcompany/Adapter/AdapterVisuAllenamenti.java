@@ -22,7 +22,7 @@ public class AdapterVisuAllenamenti extends BaseAdapter
     static List<EditText> listaEdit = new ArrayList<EditText>();
 
     private Context context;
-    private  List<Allenamento> ListaValori = new ArrayList<Allenamento>();
+    private  List<Allenamento> ListaValori = new ArrayList<Allenamento>();//lista in input
     private  List<String> ListaStringheValori = new ArrayList<String>();
 
     public AdapterVisuAllenamenti(Context context, List<Allenamento> ListaValori)
@@ -30,7 +30,7 @@ public class AdapterVisuAllenamenti extends BaseAdapter
         this.context = context;
         this.ListaValori = ListaValori;
 
-        //popolo la lista che conterrà singolarmente ogni valore della scheda, necessaria per la visualizzazioe
+        //popolo la lista che conterrà singolarmente ogni valore dell allenamento, necessaria per la visualizzazioe
         //creo linea di intestazione
         ListaStringheValori.add("Es");
         ListaStringheValori.add("Set");
@@ -81,6 +81,7 @@ public class AdapterVisuAllenamenti extends BaseAdapter
             }
             else
             {
+                // get layout from item_textview,
                 gridView = inflater.inflate(R.layout.item_textview, null);
 
                 // set value into textview

@@ -72,7 +72,7 @@ public class TrainersActivity extends AppCompatActivity {
         btnContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO contact trainer
+                // contact trainer
                 int current= getItem(0);
                 intent = new Intent(v.getContext(), ContactActivity.class);
                 intent.putExtra("trainer",trainers.get(current));

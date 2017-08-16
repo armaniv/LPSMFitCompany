@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -67,6 +66,24 @@ public class StarterActivity extends AppCompatActivity {
     public void StartUtente(View v )
     {
         Intent intent = new Intent(this, UtenteAcitivity.class);
+        startActivity(intent);
+    }
+
+    public void StartGrafici(View v )
+    {
+        Intent intent = new Intent(this, GraficiPesoActivity.class);
+        startActivity(intent);
+    }
+
+    public void StartGraficoAffolamento(View v)
+    {
+        Intent intent = new Intent(this, GraficoAffollamentoActivity.class);
+        startActivity(intent);
+    }
+
+    public void StartCronometro(View v)
+    {
+        Intent intent = new Intent(this, CronometroActivity.class);
         startActivity(intent);
     }
 }

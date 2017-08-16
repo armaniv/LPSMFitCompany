@@ -35,7 +35,7 @@ public class AllenamentoActivity extends AppCompatActivity
 
         Intent i = getIntent();
         Scheda scheda = (Scheda) i.getSerializableExtra("SchedaSelezionata");
-        //final String schedaid= scheda.getId();
+
         SCHEDAID= scheda.getId();
 
 

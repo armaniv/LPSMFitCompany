@@ -1,5 +1,5 @@
 CREATE TABLE Istruttore (Id INTEGER, Nome VARCHAR (50), Cognome VARCHAR (50), Specializzazione VARCHAR (500), IdPalestra VARCHAR (50) REFERENCES Palestra (Nome) NOT NULL, PRIMARY KEY (Id));
-CREATE TABLE Utente (Id INTEGER, Nome VARCHAR (50), Cognome VARCHAR (50), Email VARCHAR (50), IAbb DATE, FAbb DATE, Day_corrente TINYINT, Password VARCHAR (25), IdIstruttore INTEGER NOT NULL, Palestra VARCHAR (50) REFERENCES Palestra (Nome) NOT NULL, PRIMARY KEY (Id), FOREIGN KEY (IdIstruttore) REFERENCES Istruttore (Id));
+CREATE TABLE Utente (Id INTEGER, Nome VARCHAR (50), Cognome VARCHAR (50), Email VARCHAR (50), IAbb DATE, FAbb DATE, Day_corrente TINYINT, Password VARCHAR (25), IdIstruttore INTEGER NOT NULL, Palestra VARCHAR (50) REFERENCES Palestra (Nome) NOT NULL,Scheda_corrente INTEGER REFERENCES Scheda(Id) NOT NULL,PRIMARY KEY (Id), FOREIGN KEY (IdIstruttore) REFERENCES Istruttore (Id));
 CREATE TABLE Accesso(Tempo TIMESTAMP,IdUtente INTEGER NOT NULL,PRIMARY KEY(Tempo),FOREIGN KEY (IdUtente) REFERENCES Utente(Id));
 CREATE TABLE Peso(Tempo TIMESTAMP,Kg DECIMAL(6,3),IdUtente INTEGER NOT NULL,PRIMARY KEY(Tempo),FOREIGN KEY (IdUtente) REFERENCES Utente(Id));
 CREATE TABLE Scheda(Id INTEGER,NVolte TINYINT,Obbiettivo VARCHAR(20),DataInizio DATE,PRIMARY KEY(Id));
@@ -11,6 +11,4 @@ CREATE TABLE Notizia (IdPalestra VARCHAR (50) NOT NULL REFERENCES Palestra (Nome
 CREATE TABLE Palestra (Nome VARCHAR (50),Indirizzo VARCHAR (50),SogliaMedioAffollato INTEGER,SogliaTantoAffollato INTEGER,PRIMARY KEY(Nome));
 CREATE TABLE Orario (IdPalestra VARCHAR (50) NOT NULL REFERENCES Palestra (Nome), Giorno VARCHAR (50), Orario VARCHAR(50), PRIMARY KEY (IdPalestra, Giorno));
 CREATE TABLE Chiusura (IdPalestra VARCHAR (50) NOT NULL REFERENCES Palestra (Nome), dataInizio DATE,dataFine DATE, PRIMARY KEY (IdPalestra, dataFine));
-
-
-
+CREATE TABLE Domande (IdDomanda INTEGER AUTO_INCREMENT, IdUtente INTEGER NOT NULL REFERENCES Utente (Id), IdIstruttore INTEGER NOT NULL REFERENCES Istruttore (Id),Domanda VARCHAR(500), PRIMARY KEY (IdDomanda));

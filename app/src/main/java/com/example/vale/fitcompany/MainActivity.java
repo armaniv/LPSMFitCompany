@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity
 {
     TextView gymName;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -33,11 +32,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, StarterActivity.class);
             startActivity(intent);
             finish();
-
-
         }
-
-
     }
 
     private boolean checkCache()
@@ -50,6 +45,5 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
     }
-
 
 }

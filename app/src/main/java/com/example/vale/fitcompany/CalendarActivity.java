@@ -8,34 +8,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.example.vale.fitcompany.DataBase.DBOperations;
 import com.example.vale.fitcompany.Oggetti.Chiusura;
-import com.example.vale.fitcompany.Oggetti.News;
 import com.example.vale.fitcompany.Oggetti.Orario;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity {
     DBOperations db;
     MaterialCalendarView calendar;
     private HashSet<CalendarDay> dates;
+    private HashSet<CalendarDay> tod;
+
     List<Chiusura> chiusure;
     List<Orario> orarionormale;
 
@@ -61,9 +57,15 @@ public class CalendarActivity extends AppCompatActivity {
       //  calendar.setDateTextAppearance(R.style.AppTheme);
         Calendar c = Calendar.getInstance();
         dates=new HashSet<CalendarDay>();
+        tod=new HashSet<CalendarDay>();
+
         setHashCalendar();
         dates.add(new CalendarDay().from(c));
         calendar.addDecorator(new CircleDecorator(this,R.drawable.decor,dates));
+        CalendarDay today=new CalendarDay().from(Calendar.getInstance().getTime());
+        tod.add(today);
+        calendar.addDecorator(new CircleDecorator(this,R.drawable.decortoday,tod));
+
 
         final ListView mylist = (ListView) findViewById(R.id.ListViewCalendario);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,formatListItems() );
