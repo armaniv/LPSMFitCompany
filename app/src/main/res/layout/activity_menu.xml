@@ -155,7 +155,7 @@
             app:srcCompat="@mipmap/chart" />
 
         <ImageButton
-            android:id="@+id/bPairWork"
+            android:id="@+id/bCronometro"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bNews"
@@ -165,8 +165,8 @@
             android:background="?android:selectableItemBackground"
             android:maxHeight="90dp"
             android:scaleType="fitCenter"
-            android:onClick="StartPairWorkout"
-            app:srcCompat="@mipmap/pair_workout" />
+            android:onClick="StartCronometro"
+            app:srcCompat="@mipmap/cronometro" />
 
     </RelativeLayout>
 

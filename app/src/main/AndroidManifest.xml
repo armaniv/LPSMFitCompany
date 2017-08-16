@@ -69,7 +69,7 @@
             android:theme="@style/AppTheme.Dark" />
 
         <activity
-            android:name=".PairWorkoutActivity"
+            android:name=".CronometroActivity"
             android:theme="@style/AppTheme.Dark"
             android:screenOrientation="portrait"/>
 

@@ -81,9 +81,9 @@ public class StarterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void StartPairWorkout(View v)
+    public void StartCronometro(View v)
     {
-        Intent intent = new Intent(this, PairWorkoutActivity.class);
+        Intent intent = new Intent(this, CronometroActivity.class);
         startActivity(intent);
     }
 }
