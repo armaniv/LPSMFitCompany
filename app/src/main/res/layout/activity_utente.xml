@@ -7,152 +7,186 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp">
 
         <ImageView
             android:id="@+id/imgProfiloUtente"
             android:layout_width="183dp"
-            android:layout_height="198dp"
+            android:layout_height="0dp"
             app:srcCompat="@mipmap/profilo"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="50dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_constraintTop_creator="1"
             tools:layout_constraintRight_creator="1"
-            tools:layout_constraintLeft_creator="1" />
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/txtTitoloNome"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="25dp"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="35dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtUtenteNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
             android:text="da settare dal DB"
             android:textSize="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            app:layout_constraintLeft_toRightOf="@+id/txtTitoloNome"
-            android:layout_marginLeft="60dp"
-            android:layout_marginStart="60dp" />
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/txtUtenteCognome"
+            app:layout_constraintRight_toRightOf="@+id/txtUtenteCognome"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtUtenteCognome" />
 
         <TextView
             android:id="@+id/txtUtenteCognome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="85dp"
             android:text="da settare dal DB"
             android:textSize="20dp"
-            app:layout_constraintLeft_toRightOf="@+id/txtTitoloCognome"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginStart="27dp" />
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/txtUtenteInizioAbb"
+            app:layout_constraintRight_toRightOf="@+id/txtUtenteInizioAbb"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtUtenteInizioAbb" />
 
         <TextView
             android:id="@+id/txtUtenteInizioAbb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="135dp"
             android:text="da settare dal DB"
             android:textSize="20dp"
-            app:layout_constraintLeft_toRightOf="@+id/txtTitoloIniAbb"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginStart="26dp" />
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/txtUtenteFineAbb"
+            app:layout_constraintRight_toRightOf="@+id/txtUtenteFineAbb"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintLeft_toLeftOf="@+id/txtUtenteFineAbb" />
 
         <TextView
             android:id="@+id/txtUtenteFineAbb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="37dp"
-            android:layout_marginTop="185dp"
             android:text="da settare dal DB"
             android:textSize="20dp"
-            app:layout_constraintLeft_toRightOf="@+id/txtTitoloFineAbb"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginStart="37dp" />
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/btnSalvaPeso"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintLeft_toLeftOf="@+id/edtPeso" />
 
         <TextView
             android:id="@+id/txtTitoloNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
             android:text="@string/Nome_activity_utente"
             android:textSize="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginLeft="45dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="45dp" />
+            android:layout_marginStart="45dp"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/txtTitoloCognome"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             android:id="@+id/txtTitoloCognome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
             android:text="@string/Cognome_activity_utente"
             android:textSize="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginLeft="45dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="45dp" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/txtUtenteCognome"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="@+id/txtTitoloNome" />
 
         <TextView
             android:id="@+id/txtTitoloIniAbb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="135dp"
             android:text="@string/InizioAbb_activity_utente"
             android:textSize="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginLeft="45dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="45dp" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/txtUtenteInizioAbb"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="@+id/txtTitoloCognome" />
 
         <TextView
             android:id="@+id/txtTitoloFineAbb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="185dp"
             android:text="@string/FineAbb_activity_utente"
             android:textSize="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginStart="45dp" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/txtUtenteFineAbb"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="@+id/txtTitoloIniAbb" />
 
         <TextView
             android:id="@+id/txtTitoloPeso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="233dp"
             android:text="@string/Peso_activity_utente"
             android:textSize="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginStart="45dp" />
+            tools:layout_constraintTop_creator="1"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitoloFineAbb"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="@+id/txtTitoloFineAbb" />
 
         <EditText
             android:id="@+id/edtPeso"
             android:layout_width="69dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="68dp"
-            android:layout_marginTop="225dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textSize="20dp"
-            app:layout_constraintLeft_toRightOf="@+id/txtTitoloPeso"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfiloUtente"
-            android:layout_marginStart="68dp" />
+            android:layout_marginStart="37dp"
+            tools:layout_constraintRight_creator="1"
+            android:layout_marginEnd="38dp"
+            app:layout_constraintRight_toRightOf="@+id/logoutbt"
+            app:layout_constraintBaseline_toBaselineOf="@+id/btnSalvaPeso"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toRightOf="@+id/txtTitoloFineAbb" />
 
         <Button
             android:id="@+id/btnSalvaPeso"
-            android:layout_width="71dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="150dp"
-            android:layout_marginStart="155dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="18dp"
             android:text="@string/Btn_activity_utente"
             android:onClick="SalvaPeso"
-            app:layout_constraintLeft_toRightOf="@+id/txtTitoloPeso"
-            app:layout_constraintTop_toBottomOf="@+id/txtUtenteFineAbb" />
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="71dp"
+            app:layout_constraintLeft_toRightOf="@+id/edtPeso" />
+
+        <Button
+            android:id="@+id/logoutbt"
+            android:layout_width="157dp"
+            android:layout_height="0dp"
+            android:text="Logout"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:onClick="Logout"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="9dp"
+            app:layout_constraintTop_toBottomOf="@+id/btnSalvaPeso"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

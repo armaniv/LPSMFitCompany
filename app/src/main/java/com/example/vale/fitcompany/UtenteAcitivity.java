@@ -1,5 +1,8 @@
 package com.example.vale.fitcompany;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -40,6 +43,17 @@ public class UtenteAcitivity extends AppCompatActivity
 
         EditText peso = (EditText) findViewById(R.id.edtPeso);
         peso.setText(pesocorporeo);
+
+    }
+    public void Logout(View v)
+    {
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.commit();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 
