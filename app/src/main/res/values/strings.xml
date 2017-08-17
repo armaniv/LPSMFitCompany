@@ -26,5 +26,6 @@
 
     <string name="Txt_persone_GrAff">Persone in palestra: </string>
 
+    <string name="Titolo_activity_crono">Timer</string>
 
 </resources>
