@@ -1,8 +1,8 @@
 INSERT INTO Orario VALUES ('Golds Gym', 'Da Lunedi a Venerdi',"6-24");
 INSERT INTO Orario VALUES ('Golds Gym', 'Sabato e Domenica',"6-20");
 INSERT INTO Chiusura VALUES('Golds Gym','2017-08-10','2017-08-20');
-INSERT INTO Palestra VALUES ('Golds Gym', 'USA, Venice',2,5);
-INSERT INTO Palestra VALUES ('Center Sport', 'Via Grossi 1',10,16);
+INSERT INTO Palestra VALUES ('Golds Gym', 'USA, Venice',2,5,45.954626 ,10.649378);
+INSERT INTO Palestra VALUES ('Center Sport', 'Via Grossi 1',10,16,45.733625,10.940586);
 INSERT INTO Notizia (IdPalestra, Descrizione, Data) VALUES ('Golds Gym', 'Dont wait check out Arnolds new workout plan, Blueprint for mass', '2017-02-22 15:00:05');
 INSERT INTO Notizia (IdPalestra, Descrizione, Data) VALUES ('Center Sport', 'Con il mese di aprile si torna a pagare 35 euro al mese', '2017-02-22 12:00:05');
 INSERT INTO Notizia (IdPalestra, Descrizione, Data) VALUES ('Center Sport', 'Il vincitore del torneo nazionale e Mario Rossi', '2017-04-22 19:00:05');

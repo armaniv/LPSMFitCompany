@@ -4,7 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="next">NEXT</string>
-    <string name="skip">CONTACT</string>
+    <string name="skip">CONTATTA</string>
+    <string name="btn_accesso_activity_menu">Accesso</string>
 
     <string name="Titolo_activity_schede">Elenco schede</string>
 
@@ -23,9 +24,12 @@
 
     <string name="Titolo_activity_grafico_afforlamento">Distribuzione allenamenti adesso:</string>
 
+    <string name="btn_invia_contatta_domanda">Invia</string>
 
     <string name="Txt_persone_GrAff">Persone in palestra: </string>
 
     <string name="Titolo_activity_crono">Timer</string>
+
+
 
 </resources>

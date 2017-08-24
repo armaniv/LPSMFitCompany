@@ -48,7 +48,7 @@
         android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Invia"
+        android:text="@string/btn_invia_contatta_domanda"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"

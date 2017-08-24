@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
+import android.text.style.TtsSpan;
 import android.util.FloatProperty;
 import android.util.Log;
 import android.util.Pair;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -534,4 +537,69 @@ public class DBOperations {
 
         mDb.insert("Domande", null, values);
     }
+
+    //metodo che restituisce la posizione, nel formato Location,  della palestra
+    public Location PosizionePalestra()
+    {
+        Location posizione = new Location("");//provider name is unnecessary
+
+        Cursor c = mDb.rawQuery("SELECT * FROM Palestra WHERE Nome=?", new String[]{GYM});
+        c.moveToFirst();
+
+        String lat,longi;
+
+        lat= c.getString(c.getColumnIndex("Latitudine"));
+        longi= c.getString(c.getColumnIndex("Longitudine"));
+
+        Double dlat = Double.parseDouble(lat);
+        Double dlong = Double.parseDouble(longi);
+
+
+        posizione.setLatitude(dlat);
+        posizione.setLongitude(dlong);
+
+        return posizione;
+    }
+
+
+    //metodo per registrare un accesso all'interno del DB. Valido sia per eventuali tornelli che per il pulsante sostituitco
+    //per l'accesso
+    public void CreaAccesso() {
+        //inserisco un accesso nella tebella Accesso del DB
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        ContentValues values = new ContentValues();
+        values.put("Tempo", dateFormat.format(date));
+        values.put("IdUtente", ID_UTENTE);
+
+        mDb.insert("Accesso", null, values);
+
+
+        //aggiorno il valore di Day_corrente, questo valore serve per prevedere in maniera quale seduta (o giorno
+        //di allenamento) dovrà svolgere di volta in volta l'utente
+
+        //recupero il giorno corrente e la id scheda dell'utente
+        Cursor c = mDb.rawQuery("SELECT * FROM Utente WHERE Id=?", new String[]{ID_UTENTE});
+        c.moveToFirst();
+        String dayvecchio = c.getString(c.getColumnIndex("Day_corrente"));
+        String scheda = c.getString(c.getColumnIndex("Scheda_corrente"));
+        int seduta = (Integer.parseInt(dayvecchio)) + 1;//incremento di uno il valore
+
+        //recupero il quanti giorni è strutturata la tabella corrente
+        Cursor c2 = mDb.rawQuery("SELECT * FROM Scheda WHERE Id=?", new String[]{scheda});
+        c2.moveToFirst();
+        String quantevolte = c2.getString(c2.getColumnIndex("NVolte"));
+        int max = Integer.parseInt(quantevolte);
+
+        //se la seduta prevista supera il numero di suddivisione si deve ripartire con la prima prevista da scheda
+        if (seduta > max)
+            seduta = 1;
+
+        ContentValues cv = new ContentValues();
+        cv.put("Day_corrente", seduta);
+
+        mDb.update("Utente", cv, "Id=" + ID_UTENTE, null);
+
+    }
+
 }
