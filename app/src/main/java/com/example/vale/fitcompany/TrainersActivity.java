@@ -43,9 +43,6 @@ public class TrainersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Checking for first time launch - before calling setContentView()
-
-
         setContentView(R.layout.activity_trainers);
         db = DBOperations.getInstance(getApplicationContext());
         db.open();

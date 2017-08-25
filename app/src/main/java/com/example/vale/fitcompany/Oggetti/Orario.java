@@ -2,9 +2,6 @@ package com.example.vale.fitcompany.Oggetti;
 
 import java.io.Serializable;
 
-/**
- * Created by Jacek on 05/08/2017.
- */
 
 public class Orario implements Serializable {
     private String Giorni;

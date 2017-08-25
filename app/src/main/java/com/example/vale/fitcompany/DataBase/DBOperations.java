@@ -84,7 +84,7 @@ public class DBOperations {
 
     //procedura che fissa la palestra all'interno dell'app.
     public String getGym(String username) {
-        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        /*In caso il db fosse esclusivo per una unica palestra la query da eseguire sarebbe semplicemnte:
         SELECT Nome FROM Palestra
         nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
 
@@ -186,7 +186,7 @@ public class DBOperations {
 
     //procedure che recupera dal DB i trainers presenti nella palestra e li restituisce sotto forma di List<Trainer>
     public List<Trainer> GetTrainers() {
-        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        /*In caso il db fosse esclusivo per una unica palestra la query da eseguire sarebbe semplicemnte:
         SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore
         nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor c = mDb.rawQuery("SELECT Id,Nome, Cognome,Specializzazione FROM Istruttore WHERE IdPalestra=?", new String[]{GYM});
@@ -211,7 +211,7 @@ public class DBOperations {
 
     //procedure che recupera dal DB le notizie relative alla palestra (le News) e le restituisce sotto forma di List<News>
     public List<News> GetNews() {
-        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        /*In caso il db fosse esclusivo per una unica palestra la query da eseguire sarebbe semplicemnte:
         SELECT * FROM Notizia
         nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor c = mDb.rawQuery("SELECT * FROM Notizia WHERE IdPalestra=?", new String[]{GYM});
@@ -253,9 +253,9 @@ public class DBOperations {
         return risultato;
     }
 
-    //procedure che recupera dal DB Chiusure fouri dal ordinario della palestra e lo restituisce sotto forma di List<Chiusura>
+    //procedure che recupera dal DB le chiusure fouri dal ordinario della palestra e lo restituisce sotto forma di List<Chiusura>
     public List<Chiusura> GetChiusura() throws ParseException {
-        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        /*In caso il db fosse esclusivo per una unica palestra la query da eseguire sarebbe semplicemnte:
         SELECT * FROM Chiusura
         nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor c = mDb.rawQuery("SELECT * FROM Chiusura WHERE IdPalestra=?", new String[]{GYM});
@@ -336,7 +336,7 @@ public class DBOperations {
         tmp = c.getString(c.getColumnIndex("SogliaTantoAffollato"));
         soglia2 = Integer.parseInt(tmp);
 
-        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        /*In caso il db fosse esclusivo per una unica palestra la query da eseguire sarebbe semplicemnte:
         SELECT Tempo FROM Accesso WHERE Tempo >=datetime('now', '-1.5 Hour')
         nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor curs = mDb.rawQuery("SELECT Tempo FROM Accesso, Utente WHERE Id=IdUtente AND Tempo >=datetime('now', '-1.5 Hour') AND Palestra=?", new String[]{GYM});
@@ -355,7 +355,8 @@ public class DBOperations {
     }
 
 
-    //metodo che resistuisce le informazioni provenenti dal db riguardo l'utente al momento loggato
+    //metodo che resistuisce le informazioni provenenti dal db riguardo l'utente al momento loggato e restituendo
+    //un oggetto Utente
     public Utente RitornaUtenteAttuale() {
         Cursor c = mDb.rawQuery("SELECT * FROM Utente WHERE Id=?", new String[]{ID_UTENTE});
 
@@ -440,8 +441,10 @@ public class DBOperations {
     }
 
 
+    //procedura che restituisce il numero di utenti che hanno effettuato l'acesso un'ora e mezza prima rispetto a
+    //quando il metodo viene invocato
     public Integer NumeroUtentiAttuali() {
-        /*In caso il db fosse esclusivo per una unica palestra la quiry da eseguire sarebbe semplicemnte:
+        /*In caso il db fosse esclusivo per una unica palestra la query da eseguire sarebbe semplicemnte:
         SELECT Tempo FROM Accesso WHERE Tempo >=datetime('now', '-1.5 Hour')
         nel nostro caso invece, la query si "complica" perchè per fini dimostrativi nel nostro DB sono presenti due palestre*/
         Cursor curs = mDb.rawQuery("SELECT Tempo FROM Accesso, Utente WHERE Id=IdUtente AND Tempo >=datetime('now', '-1.5 Hour') AND Palestra=?", new String[]{GYM});
@@ -599,7 +602,7 @@ public class DBOperations {
         cv.put("Day_corrente", seduta);
 
         mDb.update("Utente", cv, "Id=" + ID_UTENTE, null);
-
     }
+
 
 }

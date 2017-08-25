@@ -19,6 +19,7 @@
     <string name="FineAbb_activity_utente">Fine abb:</string>
     <string name="Peso_activity_utente">Peso:</string>
     <string name="Btn_activity_utente">Salva</string>
+    <string name="Btn_logout_activity_utente">Logout</string>
 
     <string name="Titolo_activity_grafico_peso">Grafici peso corporeo</string>
 
@@ -30,6 +31,7 @@
 
     <string name="Titolo_activity_crono">Timer</string>
 
-
+    <string name="Info_activity_signup">For access data contact your gym owner</string>
+    <string name="link_activity_signup">Already a member? Login</string>
 
 </resources>

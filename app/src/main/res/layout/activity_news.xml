@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="NEWS"
+        android:text="@string/title_activity_news"
         android:textSize="24sp"
         android:textStyle="bold" />
     <ListView

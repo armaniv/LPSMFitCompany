@@ -57,8 +57,8 @@ public class AllenamentoActivity extends AppCompatActivity
 
         DBOperations db = DBOperations.getInstance(getApplicationContext());
         db.open();
-
         int GiornoPrevisto= db.GiornoCorrente();
+        db.close();
 
         spinner.setSelection((GiornoPrevisto-1));
 

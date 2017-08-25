@@ -1,9 +1,5 @@
 package com.example.vale.fitcompany.Oggetti;
 
-/**
- * Created by Vale on 31/07/2017.
- */
-
 public class Allenamento
 {
     String IdEs,NomeEs,Set,Peso,Note;

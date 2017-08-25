@@ -45,6 +45,7 @@ public class UtenteAcitivity extends AppCompatActivity
         peso.setText(pesocorporeo);
 
     }
+
     public void Logout(View v)
     {
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);

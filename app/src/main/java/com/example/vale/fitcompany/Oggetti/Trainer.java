@@ -2,9 +2,6 @@ package com.example.vale.fitcompany.Oggetti;
 
 import java.io.Serializable;
 
-/**
- * Created by Jacek on 31/07/2017.
- */
 
 public class Trainer implements Serializable {
 

@@ -54,14 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void login() {
-        Log.d(TAG, "Login");
-
-        /*if (!validate()) {
-            onLoginFailed();
-            return;
-        }*/
-
+    public void login()
+    {
         _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,

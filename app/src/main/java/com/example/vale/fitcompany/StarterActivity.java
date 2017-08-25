@@ -30,7 +30,6 @@ public class StarterActivity extends AppCompatActivity {
 
         TextView infoStatoPalestra = (TextView) findViewById(R.id.textBusy);
         infoStatoPalestra.setText(db.RitornaStatoPalestra());
-
         db.close();
 
         String gym="";
@@ -98,7 +97,7 @@ public class StarterActivity extends AppCompatActivity {
         final Location pale= db.PosizionePalestra();
         db.close();
 
-        final Handler handler = new Handler(); //Before your Thread
+        final Handler handler = new Handler();
 
         MyLocation.LocationResult locationResult = new MyLocation.LocationResult(){
             @Override

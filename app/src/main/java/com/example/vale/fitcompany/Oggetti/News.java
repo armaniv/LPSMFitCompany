@@ -2,9 +2,6 @@ package com.example.vale.fitcompany.Oggetti;
 
 import java.io.Serializable;
 
-/**
- * Created by Jacek on 02/08/2017.
- */
 
 public class News implements Serializable {
     private String Palestra,Descrizone,Data;

@@ -3,9 +3,6 @@ package com.example.vale.fitcompany.Oggetti;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by Jacek on 05/08/2017.
- */
 
 public class Chiusura implements Serializable {
     Date inizio;
